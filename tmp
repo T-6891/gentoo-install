@@ -34,7 +34,16 @@ parted -a optimal $DISK name 3 swap
 parted -a optimal $DISK mkpart primary 643 -1
 parted -a optimal $DISK name 4 rootfs
 parted -a optimal $DISK set 2 boot on
-
+# Форматирование разделов
+mkfs.ext4 /dev/sda2
+mkfs.ext4 /dev/sda4
+# Активация swap раздела
+mkswap /dev/sda3
+swapon /dev/sda3
+# Монтирование разделов
+mount /dev/sda4 /mnt/gentoo
+mkdir /mnt/gentoo/boot
+mount /dev/sda2 /mnt/gentoo/boot
 
 --- Установка установочных файлов Gentoo
 
