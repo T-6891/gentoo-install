@@ -59,7 +59,7 @@ CFLAGS="-march=native -O2 -pipe"
 CXXFLAGS="${CFLAGS}"
 # подсчет количества потоков процессора
 MAKEOPTS=$((`cat /proc/cpuinfo | grep processor | wc -l` + 1))
-echo $MAKEOPTS
+echo MAKEOPTS=\"-j$MAKEOPTS\"
 
 
 --- Настройка ядра Linux
