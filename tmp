@@ -46,7 +46,8 @@ mkdir /mnt/gentoo/boot
 mount /dev/sda2 /mnt/gentoo/boot
 
 --- Установка установочных файлов Gentoo
-
+# Загрузка последнего среза
+curl http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/latest-stage3-amd64.txt
 
 --- Установка базовой системы Gentoo
 
