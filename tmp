@@ -46,8 +46,11 @@ mkdir /mnt/gentoo/boot
 mount /dev/sda2 /mnt/gentoo/boot
 
 --- Установка установочных файлов Gentoo
+cd /mnt/gentoo
 # Загрузка последнего среза
 wget http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/`lynx -source http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/latest-stage3-amd64.txt | grep stage3 | awk '{print $1}'`
+# Распаковка среза
+tar xvjpf stage3-*.tar.bz2
 
 --- Установка базовой системы Gentoo
 
