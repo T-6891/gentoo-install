@@ -7,6 +7,8 @@
 # Импортирование настроек из LiveCD
 # Сетевой интерфейс по умолчанию
 netstat -r | grep default | awk '{print $8}'
+# Сетевые настройки ip,mask,bcast
+ifconfig `netstat -r | grep default | awk '{print $8}'` | grep inet
 # Шлюз по умолчанию
 netstat -r | grep default | awk '{print $2}'
 
