@@ -21,6 +21,13 @@ netstat -r | grep default | awk '{print $2}'
 --- Подготовка дисков
 # Вывод информации по дискам
 parted --list | grep Model -A2
+# Стандартная установка ext4
+# parted -a optimal $DISK mklabel gpt
+# parted -a optimal $DISK unit mib
+# parted -a optimal $DISK mkpart primary 1 3
+# parted -a optimal $DISK name 1 grub
+# parted -a optimal $DISK set 1 bios_grub on
+
 
 --- Установка установочных файлов Gentoo
 
