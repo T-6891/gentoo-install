@@ -8,7 +8,7 @@
 # Сетевой интерфейс по умолчанию
 netstat -r | grep default | awk '{print $8}'
 # Сетевые настройки ip,mask,bcast
-ifconfig `netstat -r | grep default | awk '{print $8}'` | grep inet | awk -v RS=' ' '!(NR%1){gsub(/\n/," ");print}'
+ifconfig `netstat -r | grep default | awk '{print $8}'` | grep inet | awk -v RS=' ' '!(NR%1){gsub(/\n/," ");print} ' | sed -n '/inet/,/ /p'
 # Шлюз по умолчанию
 netstat -r | grep default | awk '{print $2}'
 
