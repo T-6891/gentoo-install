@@ -53,6 +53,9 @@ wget http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/`lynx -s
 tar xvjpf stage3-*.tar.bz2
 
 --- Установка базовой системы Gentoo
+# подсчет количества потоков процессора
+MAKEOPTS=$((`cat /proc/cpuinfo | grep processor | wc -l` + 1))
+echo $MAKEOPTS
 
 
 --- Настройка ядра Linux
