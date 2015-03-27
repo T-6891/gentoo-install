@@ -47,7 +47,7 @@ mount /dev/sda2 /mnt/gentoo/boot
 
 --- Установка установочных файлов Gentoo
 # Загрузка последнего среза
-curl http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/latest-stage3-amd64.txt
+wget http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/`lynx -source http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/latest-stage3-amd64.txt | grep stage3 | awk '{print $1}'`
 
 --- Установка базовой системы Gentoo
 
