@@ -5,6 +5,8 @@
 
 --- Настройка сети
 # Импортирование настроек из LiveCD
+# Сетевой интерфейс по умолчанию
+netstat -r | grep default | awk '{print $8}'
 # Шлюз по умолчанию
 netstat -r | grep default | awk '{print $2}'
 
