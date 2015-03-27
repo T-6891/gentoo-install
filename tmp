@@ -19,7 +19,8 @@ ifconfig `netstat -r | grep default | awk '{print $8}'` | grep inet | awk -v RS=
 netstat -r | grep default | awk '{print $2}'
 
 --- Подготовка дисков
-
+# Вывод информации по дискам
+parted --list | grep Model -A2
 
 --- Установка установочных файлов Gentoo
 
