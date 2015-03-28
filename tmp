@@ -72,11 +72,16 @@ CHOST="x86_64-pc-linux-gnu"
 
 MAKEOPTS="-j5"
 
-USE="bindist mmx sse sse2"
+LINGUAS="ru en"
+USE="-ipv6 -X bindist mmx sse sse2"
+ACCEPT_LICENSE="*"
 
 PORTDIR="/usr/portage"
 DISTDIR="${PORTDIR}/distfiles"
 PKGDIR="${PORTDIR}/packages"
+
+GENTOO_MIRRORS="http://mirror.yandex.ru/gentoo-distfiles/"
+SYNC="rsync://mirror.yandex.ru/gentoo-portage"
 
 
 
