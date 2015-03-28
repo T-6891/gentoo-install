@@ -65,6 +65,19 @@ CXXFLAGS="${CFLAGS}"
 # подсчет количества потоков процессора
 MAKEOPTS=$((`cat /proc/cpuinfo | grep processor | wc -l` + 1))
 echo MAKEOPTS=\"-j$MAKEOPTS\"
+#make.conf example
+CFLAGS="-march=native -O2 -pipe"
+CXXFLAGS="${CFLAGS}"
+CHOST="x86_64-pc-linux-gnu"
+
+MAKEOPTS="-j5"
+
+USE="bindist mmx sse sse2"
+
+PORTDIR="/usr/portage"
+DISTDIR="${PORTDIR}/distfiles"
+PKGDIR="${PORTDIR}/packages"
+
 
 
 --- Настройка ядра Linux
