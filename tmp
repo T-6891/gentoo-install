@@ -21,6 +21,11 @@ netstat -r | grep default | awk '{print $2}'
 --- Подготовка дисков
 # Вывод информации по дискам
 parted --list | grep Model -A1
+# генерация списка дисков (названия)
+parted --list | grep Model |  awk '{print  $3, $4, $5, $6}'
+# Сопославдение названия диска и ссылки на устройство
+
+
 # Стандартная установка ext4
 parted -a optimal $DISK mklabel gpt
 parted -a optimal $DISK unit mib
