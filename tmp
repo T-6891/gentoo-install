@@ -10,11 +10,11 @@ netstat -r | grep default | awk '{print $8}'
 # Сетевые настройки ip,mask,bcast
 ifconfig `netstat -rn | grep default | awk '{print $8}'` | grep inet | grep -v inet6 | grep -v "127.0.0.1" | awk -v RS=' ' '!(NR%1){gsub(/\n/," ");print} ' | sed -n '/inet/,/ /p'
 # IP
-ifconfig `netstat -rn | grep default | awk '{print $8}'` | grep inet | awk -v RS=' ' '!(NR%1){gsub(/\n/," ");print} ' | sed -n '/inet/,/ /p' | grep -A 1 inet
+ifconfig `netstat -rn | grep default | awk '{print $8}'` | grep inet | grep -v inet6 | grep -v "127.0.0.1" | awk -v RS=' ' '!(NR%1){gsub(/\n/," ");print} ' | grep -A 1 inet
 # Netmask
-ifconfig `netstat -rn | grep default | awk '{print $8}'` | grep inet | awk -v RS=' ' '!(NR%1){gsub(/\n/," ");print} ' | sed -n '/inet/,/ /p' | grep -A 1 netmask
+ifconfig `netstat -rn | grep default | awk '{print $8}'` | grep inet | grep -v inet6 | grep -v "127.0.0.1" | awk -v RS=' ' '!(NR%1){gsub(/\n/," ");print} ' | grep -A 1 netmask
 # broadcast
-ifconfig `netstat -rn | grep default | awk '{print $8}'` | grep inet | awk -v RS=' ' '!(NR%1){gsub(/\n/," ");print} ' | sed -n '/inet/,/ /p' | grep -A 1 broadcast
+ifconfig `netstat -rn | grep default | awk '{print $8}'` | grep inet | grep -v inet6 | grep -v "127.0.0.1" | awk -v RS=' ' '!(NR%1){gsub(/\n/," ");print} ' | grep -A 1 broadcast
 # Шлюз по умолчанию
 netstat -r | grep default | awk '{print $2}'
 
