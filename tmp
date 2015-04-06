@@ -27,18 +27,20 @@ parted --list | grep Model |  awk '{print  $3, $4, $5, $6}'
 
 
 # Стандартная установка ext4
-parted -a optimal $DISK mklabel gpt
-parted -a optimal $DISK unit mib
-parted -a optimal $DISK mkpart primary 1 3
-parted -a optimal $DISK name 1 grub
-parted -a optimal $DISK set 1 bios_grub on
-parted -a optimal $DISK mkpart primary 3 131
-parted -a optimal $DISK name 2 boot
-parted -a optimal $DISK mkpart primary 131 643
-parted -a optimal $DISK name 3 swap
-parted -a optimal $DISK mkpart primary 643 -1
-parted -a optimal $DISK name 4 rootfs
-parted -a optimal $DISK set 2 boot on
+parted -sa optimal /dev/sda mklabel gpt
+parted -sa optimal /dev/sda unit mib
+parted -sa optimal /dev/sda mkpart primary 1 3
+parted -sa optimal /dev/sda name 1 grub
+parted -sa optimal /dev/sda set 1 bios_grub on
+parted -sa optimal /dev/sda mkpart primary 3 131
+parted -sa optimal /dev/sda name 2 boot
+parted -sa optimal /dev/sda mkpart primary 131 643
+parted -sa optimal /dev/sda name 3 swap
+parted -sa optimal /dev/sda mkpart primary 643 100%
+parted -sa optimal /dev/sda name 4 rootfs
+parted -sa optimal /dev/sda set 2 boot on
+parted -sa optimal /dev/sda print
+
 # Форматирование разделов
 mkfs.ext4 /dev/sda2
 mkfs.ext4 /dev/sda4
