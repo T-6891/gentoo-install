@@ -20,7 +20,7 @@ netstat -r | grep default | awk '{print $2}'
 
 --- Подготовка дисков
 # Вывод информации по дискам
-parted --list | grep Model -A1
+parted -s --list | grep Model -A1
 # генерация списка дисков (названия)
 parted --list | grep Model |  awk '{print  $3, $4, $5, $6}'
 # Сопославдение названия диска и ссылки на устройство
