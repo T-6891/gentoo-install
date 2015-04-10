@@ -71,3 +71,43 @@ case $retval in
 esac
 
 # Выбор схемы разбивки дисков
+DIALOG=${DIALOG=dialog}
+tempfile4=`tempfile4 2>/dev/null` || tempfile4=/tmp/pdisk$$
+trap "rm -f $tempfile4" 0 1 2 5 15
+
+dialog --backtitle "Preparing the disks"  --title "The partitioning of the hard disk." \
+--menu "Please select a layout scheme of the hard disk:" 15 55 5 \
+1 "Use all available space on the disk?" \
+2 "Use all available space on the disk for LVM?" 2> $tempfile4
+
+retval=$?
+
+PDISK=`cat $tempfile4`
+case $PDISK in
+  1)
+  dialog --title "Warning!!!" --yesno "All data on the selected disk will be destroyed! You sure?" 6 62  2> $tempfile4
+        retval=$?
+        case $retval in
+          0)
+parted -sa optimal $DISK mklabel gpt
+parted -sa optimal $DISK unit mib
+parted -sa optimal $DISK mkpart primary 1 3
+parted -sa optimal $DISK name 1 grub
+parted -sa optimal $DISK set 1 bios_grub on
+parted -sa optimal $DISK mkpart primary 3 131
+parted -sa optimal $DISK name 2 boot
+parted -sa optimal $DISK mkpart primary 131 643
+parted -sa optimal $DISK name 3 swap
+parted -sa optimal $DISK mkpart primary 643 100%
+parted -sa optimal $DISK name 4 rootfs
+parted -sa optimal $DISK set 2 boot on
+          ;;
+          1)
+            exit
+        ;;
+        esac
+  ;;
+  2)
+    echo "Not worked...";;
+esac
+
