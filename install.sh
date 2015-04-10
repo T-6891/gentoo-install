@@ -54,7 +54,7 @@ $DIALOG --backtitle "Preparing the disks" \
 
 retval=$?
 
-choice=`cat $tempfile`
+DISK=`cat $tempfile`
 case $retval in
   1)
     echo "Cancel pressed.";;
