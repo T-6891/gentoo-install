@@ -19,10 +19,8 @@ ifconfig `netstat -rn | grep default | awk '{print $8}'` | grep inet | grep -v i
 netstat -rn | awk '{print $1, $2}' | grep "0.0.0.0 " | awk '{print $2}'
 
 --- Подготовка дисков
-# Вывод информации по дискам
-parted -s --list | grep Model -A1
-# генерация списка дисков (названия)
-parted --list | grep Model |  awk '{print  $3, $4, $5, $6}'
+# генерация списка дисков
+fdisk -l | grep "Disk " | grep -v identifier | grep -v loop0 | awk '{print $2, $3 $4}' | sed 's/,//g'
 # Сопославдение названия диска и ссылки на устройство
 
 
