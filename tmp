@@ -6,7 +6,7 @@
 --- Настройка сети
 # Импортирование настроек из LiveCD
 # Сетевой интерфейс по умолчанию
-netstat -r | grep default | awk '{print $8}'
+netstat -rn | grep default | awk '{print $8}'
 # Сетевые настройки ip,mask,bcast
 ifconfig `netstat -rn | grep default | awk '{print $8}'` | grep inet | grep -v inet6 | grep -v "127.0.0.1" | awk -v RS=' ' '!(NR%1){gsub(/\n/," ");print} ' | sed -n '/inet/,/ /p'
 # IP
