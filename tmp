@@ -20,7 +20,7 @@ netstat -rn | awk '{print $1, $2}' | grep "0.0.0.0 " | awk '{print $2}'
 
 --- Подготовка дисков
 # генерация списка дисков
-fdisk -l | grep "Disk " | grep -v identifier | grep -v loop0 | awk '{print $2, $3 $4}' | sed 's/,//g'
+fdisk -l | grep "Disk " | grep -v identifier | grep -v loop0 | awk '{print $2, $3 $4}' |  sed -r 's/(.*),$/\1/' 
 # Сопославдение названия диска и ссылки на устройство
 
 
