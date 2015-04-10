@@ -62,3 +62,4 @@ case $retval in
     echo "ESC pressed.";;
 esac
 
+# Выбор схемы разбивки дисков
