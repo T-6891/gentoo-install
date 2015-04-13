@@ -1,5 +1,28 @@
 #!/bin/bash
 
+# Console dialog
+red=$(tput setf 4)
+green=$(tput setf 2)
+reset=$(tput sgr0)
+toend=$(tput hpa $(tput cols))$(tput cub 6)
+
+ERROR=
+PASS=
+
+echo -e "Message for user..."
+
+# Command
+ls /
+
+if [ $? -eq 0 ]; then
+    echo -n "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+################################
+
 # Импорт сетевых настроек
 DIALOG=${DIALOG=dialog}
 tempfile2=`tempfile2 2>/dev/null` || tempfile2=/tmp/snet$$
