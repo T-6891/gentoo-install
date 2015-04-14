@@ -6,18 +6,16 @@ green=$(tput setf 2)
 reset=$(tput sgr0)
 toend=$(tput hpa $(tput cols))$(tput cub 6)
 
-ERROR=
-PASS=
-
-echo -e "Message for user..."
+#Message for user
+MSG="Message for user..."
 
 # Command
 ls /
 
 if [ $? -eq 0 ]; then
-    echo -n "${toend}${reset}[${green}OK${reset}]"
+    echo -n $MSG  "${toend}${reset}[${green}OK${reset}]"
 else
-    echo -n "${toend}${reset}[${red}fail${reset}]"
+    echo -n $MSG  "${toend}${reset}[${red}fail${reset}]"
 fi
 echo -n "${reset}"
 echo
