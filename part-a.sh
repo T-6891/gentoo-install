@@ -109,8 +109,10 @@ mount --make-rslave /mnt/gentoo/dev
 
 
 # Переход в новое окружение (chroot)
-wget http://
-chroot /mnt/gentoo/ /bin/bash -c /tmp/part-b.sh
+cd /mnt/gentoo/
+wget http://public.t-brain.ru/script/part-2.sh
+chmod +x ./part-2.sh
+chroot /mnt/gentoo/ /bin/bash -c /tmp/part-2.sh
 
 
 # Отмонтирование и перезагрузка
