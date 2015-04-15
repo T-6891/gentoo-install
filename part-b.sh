@@ -83,8 +83,9 @@ emerge -q sys-apps/mlocate
 #Удаленный доступ
 rc-update add sshd default
 
+# Grub
+emerge -av sys-boot/grub
+grub2-install /dev/sda
+grub2-mkconfig -o /boot/grub/grub.cfg
 
-
-
-
-
+exit
