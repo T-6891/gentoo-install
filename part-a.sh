@@ -1,4 +1,17 @@
 #!/bin/bash
+# Network Settings
+Lan1=`grep Lan1 install.conf | awk '{print $3}'`
+IP1=`grep IP1 install.conf | awk '{print $3}'`
+MASK1=`grep MASK1 install.conf | awk '{print $3}'`
+GW=`grep GW install.conf | awk '{print $3}'`
+HOST=`grep HOST install.conf | awk '{print $3}'`
+DOMAIN=`grep DOMAIN install.conf | awk '{print $3}'`
+DISK1=`grep DISK1 install.conf | awk '{print $3}'`
+PARTDISK=`grep PARTDISK install.conf | awk '{print $3}'`
+
+
+# Compilation Settings
+MAKECONF="/mnt/gentoo/etc/portage/make.conf"
 
 # Console dialog
 red=$(tput setf 4)
