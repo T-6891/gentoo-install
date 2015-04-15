@@ -52,12 +52,13 @@ echo "hostname=\"$HOST\""
 
 # Настройка параметров сети
 echo "dns_domain_lo=\"$DOMAIN\"" > /etc/conf.d/net
-echo "config_$Lan1=\"$IP1 netmask $MASK1\""
-echo "routes_$Lan1=\"default via $GW\""
+echo "config_$Lan1=\"$IP1 netmask $MASK1\"" >> /etc/conf.d/net
+echo "routes_$Lan1=\"default via $GW\"" >> /etc/conf.d/net
 
-
-
-
+# /etc/hosts
+echo "127.0.0.1       $HOST.$DOMAIN $HOST" > /etc/hosts
+echo "127.0.0.1       $HOST.$DOMAIN." >> /etc/hosts
+echo "127.0.0.1       localhost" >> /etc/hosts
 
 
 
