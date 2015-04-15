@@ -70,5 +70,12 @@ mount --make-rslave /mnt/gentoo/dev
 
 
 # Переход в новое окружение (chroot)
-wget 
+wget http://
 chroot /mnt/gentoo/ /bin/bash -c /tmp/part-b.sh
+
+
+# Отмонтирование и перезагрузка
+cd
+umount -l /mnt/gentoo/dev{/shm,/pts,}
+umount /mnt/gentoo{/boot,/sys,/proc,}
+reboot
