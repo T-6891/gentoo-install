@@ -30,7 +30,7 @@ emerge -q sys-kernel/gentoo-sources
 
 # Настройка ядра
 cd /usr/src/linux
-wget http://piblic.t-brain.ru/conf/kernel-server -O /usr/src/linux/.config
+wget public.t-brain.ru/conf/kernel -O /usr/src/linux/.config
 
 # Сборка нового ядра
 make && make modules_install
