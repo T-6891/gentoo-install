@@ -65,8 +65,23 @@ cd /etc/init.d
 ln -s net.lo net.$Lan1
 rc-update add net.$Lan1 default
 
-# 
+# Назначение пароля суперпользователю
+usermod -p '$6$h9mmuWBb$uOoOa81m4BXXaMUX5N069SoXblyD9/38Xf2v1BTdIE.kaA2AWhCpZyT9tdnaZsqTFIzT79kTv6iCdYO6yMjzF.' root
 
+# Компонент для ведения системных логов
+emerge -q app-admin/syslog-ng
+rc-update add syslog-ng default
+
+# Планировщик заданий
+emerge -q sys-process/cronie
+rc-update add cronie default
+crontab /etc/crontab
+
+#Индексация файлов
+emerge -q sys-apps/mlocate
+
+#Удаленный доступ
+rc-update add sshd default
 
 
 
