@@ -47,9 +47,13 @@ echo $DISK1[1]   /            ext4    noatime              0 1 >> /etc/fstab
 echo  >> /etc/fstab
 echo $DISK1[1]   /dev/cdrom  /mnt/cdrom   auto    noauto,user          0 0 >> /etc/fstab
 
+# Настройка параметров имени комптютера
+echo "hostname=\"$HOST\""
 
-
-
+# Настройка параметров сети
+echo "dns_domain_lo=\"$DOMAIN\"" > /etc/conf.d/net
+echo "config_$Lan1=\"$IP1 netmask $MASK1\""
+echo "routes_$Lan1=\"default via $GW\""
 
 
 
