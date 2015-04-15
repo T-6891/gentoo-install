@@ -1,4 +1,11 @@
 #!/bin/bash
+
+# Console dialog
+red=$(tput setf 4)
+green=$(tput setf 2)
+reset=$(tput sgr0)
+toend=$(tput hpa $(tput cols))$(tput cub 6)
+
 # Разметка диска
 if [ "$PARTDISK" == "FS" ]
 then
@@ -34,9 +41,28 @@ mount /dev/sda2 /mnt/gentoo/boot
 
 
 # Загрузка свежего среза системы
-cd /mnt/gentoo
-wget http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/`links -source http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/latest-stage3-amd64.txt | grep stage3 | awk '{print $1}'`
-tar xvjpf stage3-*.tar.bz2
+for i in 'Downloading the stage tarball'; do printf "$i\r"; done
+cd /mnt/gentoo  > /dev/null 2>&1
+wget http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/`links -source http:$
+
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Unpacking the stage tarball'; do printf "$i\r"; done
+tar xvjpf stage3-*.tar.bz2  > /dev/null 2>&1
+
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 
 # Настройка опции компиляции
