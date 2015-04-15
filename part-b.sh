@@ -60,7 +60,12 @@ echo "127.0.0.1       $HOST.$DOMAIN $HOST" > /etc/hosts
 echo "127.0.0.1       $HOST.$DOMAIN." >> /etc/hosts
 echo "127.0.0.1       localhost" >> /etc/hosts
 
+# Добавление в автозапуск сетевого адартора
+cd /etc/init.d
+ln -s net.lo net.$Lan1
+rc-update add net.$Lan1 default
 
+# 
 
 
 
