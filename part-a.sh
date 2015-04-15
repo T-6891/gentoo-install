@@ -22,9 +22,9 @@ toend=$(tput hpa $(tput cols))$(tput cub 6)
 # Разметка диска
 if [ "$PARTDISK" == "FS" ]
 then
-        PARTDISKSCHEME="/tmp/fs.conf"
+        PARTDISKSCHEME="fs.conf"
 else
-        PARTDISKSCHEME="/tmp/lvm.conf"
+        PARTDISKSCHEME="lvm.conf"
 fi
 
 while read line
