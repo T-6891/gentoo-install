@@ -132,3 +132,11 @@ parted -sa optimal $DISK set 2 boot on
     echo "Not worked...";;
 esac
 
+# Разметка диска исходя из схемы
+file="/tmp/fs.conf"
+while read line
+do
+# display $line or do somthing with $line
+parted -sa optimal $DISK1 "$line"
+done < $file
+
