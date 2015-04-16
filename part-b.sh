@@ -268,7 +268,7 @@ echo
 
 # Grub
 for i in 'Сборка загрузчика операционной системы...'; do printf "$i\r"; done
-emerge -av sys-boot/grub > /dev/null 2>&1
+emerge -q sys-boot/grub > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
