@@ -278,7 +278,7 @@ echo -n "${reset}"
 echo
 
 for i in 'Установка загрузчика операционной системы...'; do printf "$i\r"; done
-grub2-install /dev/sda > /dev/null 2>&1
+grub2-install $DISK1 > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
