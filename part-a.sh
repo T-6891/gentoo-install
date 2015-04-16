@@ -180,7 +180,7 @@ echo
 
 # Копирование конфигурационных файлов
 for i in 'Копирование конфигурационных файлов...'; do printf "$i\r"; done
-cp /mnt/install.conf /mnt/gentoo/mnt/install.conf > /dev/null 2>&1
+cp /tmp/install.conf /mnt/gentoo/tmp/install.conf > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
