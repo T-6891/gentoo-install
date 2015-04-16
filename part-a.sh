@@ -63,7 +63,7 @@ if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
     echo -n  "${toend}${reset}[${red}fail${reset}]"
-   echo 'Произошла критическая ошибка! Продолжение установки невозможно...'
+    echo 'Произошла критическая ошибка! Продолжение установки невозможно...'
 fi
 echo -n "${reset}"
 echo
