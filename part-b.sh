@@ -1,91 +1,300 @@
 #!/bin/bash
+# Network Settings
+Lan1=`grep Lan1 ./install.conf | awk '{print $3}'`
+IP1=`grep IP1 ./install.conf | awk '{print $3}'`
+MASK1=`grep MASK1 ./install.conf | awk '{print $3}'`
+GW=`grep GW ./install.conf | awk '{print $3}'`
+HOST=`grep HOST ./install.conf | awk '{print $3}'`
+DOMAIN=`grep DOMAIN ./install.conf | awk '{print $3}'`
+DISK1=`grep DISK1 ./install.conf | awk '{print $3}'`
+PARTDISK=`grep PARTDISK ./install.conf | awk '{print $3}'`
+# Console dialog
+red=$(tput setf 4)
+green=$(tput setf 2)
+reset=$(tput sgr0)
+toend=$(tput hpa $(tput cols))$(tput cub 6)
+
 
 # Установка свежего среза портеджей
-emerge-webrsync
+for i in 'Установка свежего среза портеджей...'; do printf "$i\r"; done
+emerge-webrsync > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
 
 # Настройка профиля
-eselect profile set default/linux/amd64/13.0
+for i in 'Настройка профиля системы...'; do printf "$i\r"; done
+eselect profile set default/linux/amd64/13.0 > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Настройка часового пояса
-echo "Europe/Moscow" > /etc/timezone
+for i in 'Настройка часового пояса...'; do printf "$i\r"; done
+echo "Europe/Moscow" > /etc/timezone > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Применение настроек временной зоны
-emerge --config sys-libs/timezone-data
+for i in 'Применение настроек временной зоны...'; do printf "$i\r"; done
+emerge --config sys-libs/timezone-data > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Настройка параметров локализации
-echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
-echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
+for i in 'Настройка параметров локализации...'; do printf "$i\r"; done
+echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen > /dev/null 2>&1
+echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
 
 # Генерация профилей локализации
-locale-gen
+for i in 'Генерация профилей локализации...'; do printf "$i\r"; done
+locale-gen > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Выбор профиля локализации
-eselect locale set ru_RU.UTF-8
+for i in 'Выбор профиля локализации...'; do printf "$i\r"; done
+eselect locale set ru_RU.UTF-8 > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Обновление переменных окружения
-env-update && source /etc/profile
+for i in 'Обновление переменных окружения...'; do printf "$i\r"; done
+env-update && source /etc/profile > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Установка исходных кодов ядра
-emerge -q sys-kernel/gentoo-sources
+for i in 'Установка исходных кодов ядра...'; do printf "$i\r"; done
+emerge -q sys-kernel/gentoo-sources > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Настройка ядра
-cd /usr/src/linux
-wget public.t-brain.ru/conf/kernel -O /usr/src/linux/.config
+for i in 'Настройка ядра...'; do printf "$i\r"; done
+cd /usr/src/linux > /dev/null 2>&1
+wget public.t-brain.ru/conf/kernel -O /usr/src/linux/.config > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Сборка нового ядра
-make && make modules_install
+for i in 'Сборка нового ядра...'; do printf "$i\r"; done
+make olddefconfig && make modules_install > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Установка нового ядра
-make install
-mkdir -p /boot/efi/boot
-cp /boot/vmlinuz* /boot/efi/boot/bootx64.efi
+for i in 'Установка нового ядра...'; do printf "$i\r"; done
+make install > /dev/null 2>&1
+mkdir -p /boot/efi/boot > /dev/null 2>&1
+cp /boot/vmlinuz* /boot/efi/boot/bootx64.efi > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Настройка файловых систем
-echo $DISK1[1]   /boot        ext4    defaults,noatime     0 2 > /etc/fstab
-echo $DISK1[1]   none         swap    sw                   0 0 >> /etc/fstab
-echo $DISK1[1]   /            ext4    noatime              0 1 >> /etc/fstab
-echo  >> /etc/fstab
-echo $DISK1[1]   /dev/cdrom  /mnt/cdrom   auto    noauto,user          0 0 >> /etc/fstab
+for i in 'Настройка файловых систем...'; do printf "$i\r"; done
+echo $DISK1[1]   /boot        ext4    defaults,noatime     0 2 > /etc/fstab > /dev/null 2>&1
+echo $DISK1[1]   none         swap    sw                   0 0 >> /etc/fstab > /dev/null 2>&1
+echo $DISK1[1]   /            ext4    noatime              0 1 >> /etc/fstab > /dev/null 2>&1
+echo  >> /etc/fstab > /dev/null 2>&1
+echo $DISK1[1]   /dev/cdrom  /mnt/cdrom   auto    noauto,user          0 0 >> /etc/fstab > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Настройка параметров имени комптютера
-echo "hostname=\"$HOST\""
+for i in 'Настройка параметров имени системы в сети...'; do printf "$i\r"; done
+echo "hostname=\"$HOST\"" > /etc/conf.d/hostname > /dev/null 2>&1
+echo "127.0.0.1       $HOST.$DOMAIN $HOST" > /etc/hosts > /dev/null 2>&1
+echo "127.0.0.1       $HOST.$DOMAIN." >> /etc/hosts > /dev/null 2>&1
+echo "127.0.0.1       localhost" >> /etc/hosts > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Настройка параметров сети
-echo "dns_domain_lo=\"$DOMAIN\"" > /etc/conf.d/net
-echo "config_$Lan1=\"$IP1 netmask $MASK1\"" >> /etc/conf.d/net
-echo "routes_$Lan1=\"default via $GW\"" >> /etc/conf.d/net
-
-# /etc/hosts
-echo "127.0.0.1       $HOST.$DOMAIN $HOST" > /etc/hosts
-echo "127.0.0.1       $HOST.$DOMAIN." >> /etc/hosts
-echo "127.0.0.1       localhost" >> /etc/hosts
+for i in 'Настройка параметров сети...'; do printf "$i\r"; done
+echo "dns_domain_lo=\"$DOMAIN\"" > /etc/conf.d/net > /dev/null 2>&1
+echo "config_$Lan1=\"$IP1 netmask $MASK1\"" >> /etc/conf.d/net > /dev/null 2>&1
+echo "routes_$Lan1=\"default via $GW\"" >> /etc/conf.d/net > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Добавление в автозапуск сетевого адартора
-cd /etc/init.d
-ln -s net.lo net.$Lan1
-rc-update add net.$Lan1 default
+for i in 'Добавление в автозапуск сетевого адартора...'; do printf "$i\r"; done
+cd /etc/init.d > /dev/null 2>&1
+ln -s net.lo net.$Lan1 > /dev/null 2>&1
+rc-update add net.$Lan1 default > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Назначение пароля суперпользователю
-usermod -p '$6$h9mmuWBb$uOoOa81m4BXXaMUX5N069SoXblyD9/38Xf2v1BTdIE.kaA2AWhCpZyT9tdnaZsqTFIzT79kTv6iCdYO6yMjzF.' root
+for i in 'Назначение пароля суперпользователю...'; do printf "$i\r"; done
+usermod -p '$6$h9mmuWBb$uOoOa81m4BXXaMUX5N069SoXblyD9/38Xf2v1BTdIE.kaA2AWhCpZyT9tdnaZsqTFIzT79kTv6iCdYO6yMjzF.' root > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Компонент для ведения системных логов
-emerge -q app-admin/syslog-ng
-rc-update add syslog-ng default
+for i in 'Установка службы ведения системных логов...'; do printf "$i\r"; done
+emerge -q app-admin/syslog-ng > /dev/null 2>&1
+rc-update add syslog-ng default > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Планировщик заданий
-emerge -q sys-process/cronie
-rc-update add cronie default
-crontab /etc/crontab
+for i in 'Установка планировщика заданий...'; do printf "$i\r"; done
+emerge -q sys-process/cronie > /dev/null 2>&1
+rc-update add cronie default > /dev/null 2>&1
+crontab /etc/crontab > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 #Индексация файлов
-emerge -q sys-apps/mlocate
+for i in 'Установка службы индексации файлов...'; do printf "$i\r"; done
+emerge -q sys-apps/mlocate > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 #Удаленный доступ
-rc-update add sshd default
+for i in 'Добавление службы SSH в автозагрузку...'; do printf "$i\r"; done
+rc-update add sshd default > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Grub
-emerge -av sys-boot/grub
-grub2-install /dev/sda
-grub2-mkconfig -o /boot/grub/grub.cfg
+for i in 'Сборка загрузчика операционной системы...'; do printf "$i\r"; done
+emerge -av sys-boot/grub > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка загрузчика операционной системы...'; do printf "$i\r"; done
+grub2-install /dev/sda > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Настройка загрузчика операционной системы...'; do printf "$i\r"; done
+grub2-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 exit
