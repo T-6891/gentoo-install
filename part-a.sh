@@ -84,7 +84,7 @@ echo
 
 
 # Активация раздела подкачки
-for i in 'Activating the Swap Partition...'; do printf "$i\r"; done
+for i in 'Активация раздела подкачки...'; do printf "$i\r"; done
 mkswap $DISK1[3] > /dev/null 2>&1
 swapon $DISK1[3] > /dev/null 2>&1
 if [ $? -eq 0 ]; then
@@ -96,7 +96,7 @@ echo -n "${reset}"
 echo
 
 # Монтирование
-for i in 'Mounting devices and partitions...'; do printf "$i\r"; done
+for i in 'Монтирование разделов...'; do printf "$i\r"; done
 mount /dev/sda4 /mnt/gentoo > /dev/null 2>&1
 mkdir /mnt/gentoo/boot > /dev/null 2>&1
 mount /dev/sda2 /mnt/gentoo/boot > /dev/null 2>&1
@@ -109,7 +109,7 @@ echo -n "${reset}"
 echo
 
 # Синхронизация времени
-for i in 'Time synchronization...'; do printf "$i\r"; done
+for i in 'Синхронизация времени...'; do printf "$i\r"; done
 /usr/sbin/ntpdate -u pool.ntp.org > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -120,7 +120,7 @@ echo -n "${reset}"
 echo
 
 # Загрузка свежего среза системы
-for i in 'Downloading the stage tarball'; do printf "$i\r"; done
+for i in 'Загрузка актуального среза системы...'; do printf "$i\r"; done
 cd /mnt/gentoo  > /dev/null 2>&1
 wget http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/`links -source http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/latest-stage3-amd64.txt | grep stage3 | awk '{print $1}'`  > /dev/null 2>&1
 if [ $? -eq 0 ]; then
@@ -131,7 +131,7 @@ fi
 echo -n "${reset}"
 echo
 
-for i in 'Unpacking the stage tarball'; do printf "$i\r"; done
+for i in 'Распаковка архива...'; do printf "$i\r"; done
 tar xvjpf stage3-*.tar.bz2  > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -143,7 +143,7 @@ echo
 
 
 # Настройка опции компиляции
-for i in 'Configuring compile options...'; do printf "$i\r"; done
+for i in 'Настройка опции компиляции...'; do printf "$i\r"; done
 echo 'CFLAGS="-march=native -O2 -pipe"' > $MAKECONF > /dev/null 2>&1
 echo 'CXXFLAGS="${CFLAGS}"' >> $MAKECONF > /dev/null 2>&1
 echo 'CHOST="x86_64-pc-linux-gnu"' >> $MAKECONF > /dev/null 2>&1
@@ -168,7 +168,7 @@ echo -n "${reset}"
 echo
 
 # Копирование DNS настроек
-for i in 'Copy DNS info...'; do printf "$i\r"; done
+for i in 'Копирование настроек DNS...'; do printf "$i\r"; done
 cp -L /etc/resolv.conf /mnt/gentoo/etc/ > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -190,7 +190,7 @@ echo -n "${reset}"
 echo
 
 # Монтирование необходимых файловых систем
-for i in 'Mounting the necessary filesystems...'; do printf "$i\r"; done
+for i in 'Монтирование необходимых файловых систем...'; do printf "$i\r"; done
 mount -t proc proc /mnt/gentoo/proc > /dev/null 2>&1
 mount --rbind /sys /mnt/gentoo/sys > /dev/null 2>&1
 mount --make-rslave /mnt/gentoo/sys > /dev/null 2>&1
@@ -205,7 +205,7 @@ echo -n "${reset}"
 echo
 
 # Переход в новое окружение (chroot)
-for i in 'Entering the new environment...'; do printf "$i\r"; done
+for i in 'Переход в новое окружение (chroot)...'; do printf "$i\r"; done
 cd /mnt/gentoo/tmp/ > /dev/null 2>&1
 wget http://public.t-brain.ru/script/part-2.sh > /dev/null 2>&1
 chmod +x ./part-2.sh > /dev/null 2>&1
@@ -220,8 +220,8 @@ echo
 chroot /mnt/gentoo/ /bin/bash -c /tmp/part-2.sh
 
 
-# Отмонтирование и перезагрузка
-for i in 'Rebooting the system...'; do printf "$i\r"; done
+# Перезагрузка
+for i in 'Перезагрузка системы...'; do printf "$i\r"; done
 cd > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
