@@ -21,6 +21,7 @@ toend=$(tput hpa $(tput cols))$(tput cub 6)
 
 clear
 sleep 1
+echo '###################################################################'
 echo ''
 echo ' ______ _______ __   _ _______  _____   _____'
 echo '|  ____ |______ | \  |    |    |     | |     |'
@@ -39,7 +40,7 @@ echo "Установка начнется автоматически через 
 read enter
 if [ -z "$enter" ]
 then
-   echo '###################################################################'
+
 fi
    echo '###################################################################'
    
@@ -47,8 +48,10 @@ fi
 for i in 'Designing a partition scheme...'; do printf "$i\r"; done
 if [ "$PARTDISK" == "FS" ]
 then
+        wget http://public.t-brain.ru/conf/fs.conf > /dev/null 2>&1
         PARTDISKSCHEME="fs.conf"
 else
+        wget http://public.t-brain.ru/conf/lvm.conf > /dev/null 2>&1
         PARTDISKSCHEME="lvm.conf"
 fi
 
@@ -60,6 +63,7 @@ if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
     echo -n  "${toend}${reset}[${red}fail${reset}]"
+   echo 'Произошла критическая ошибка! Продолжение установки невозможно...'
 fi
 echo -n "${reset}"
 echo
