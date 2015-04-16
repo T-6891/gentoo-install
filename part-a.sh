@@ -34,7 +34,7 @@ echo '    |_____ __|__ |  \_| |_____| _/   \_'
 echo ''
 echo ''
 sleep 1
-TMOUT=10    # Ожидание ввода не более трех секунд.
+TMOUT=10
 echo "Добро пожаловать в мастер установки!"
 echo "Установка начнется автоматически через $TMOUT секунд."
 read enter
@@ -45,7 +45,7 @@ fi
    echo '###################################################################'
    
 # Разметка диска
-for i in 'Designing a partition scheme...'; do printf "$i\r"; done
+for i in 'Создание разделов диска...'; do printf "$i\r"; done
 if [ "$PARTDISK" == "FS" ]
 then
         wget http://public.t-brain.ru/conf/fs.conf > /dev/null 2>&1
@@ -69,7 +69,7 @@ echo -n "${reset}"
 echo
 
 # Форматирование разделов
-for i in 'Creating file systems...'; do printf "$i\r"; done
+for i in 'Форматирование разделов...'; do printf "$i\r"; done
 mkfs.ext4 $DISK1[2]  > /dev/null 2>&1
 mkfs.ext4 $DISK1[4]  > /dev/null 2>&1
 if [ $? -eq 0 ]; then
