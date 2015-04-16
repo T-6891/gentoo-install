@@ -97,7 +97,8 @@ echo
 
 # Обновление переменных окружения
 for i in 'Обновление переменных окружения...'; do printf "$i\r"; done
-env-update && source /etc/profile > /dev/null 2>&1
+env-update > /dev/null 2>&1
+source /etc/profile > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
