@@ -19,6 +19,20 @@ green=$(tput setf 2)
 reset=$(tput sgr0)
 toend=$(tput hpa $(tput cols))$(tput cub 6)
 
+clear
+echo
+echo  ______ _______ __   _ _______  _____   _____
+echo |  ____ |______ | \  |    |    |     | |     |
+echo |_____| |______ |  \_|    |    |_____| |_____|
+echo
+echo            _____ __   _ _     _ _     _
+echo     |        |   | \  | |     |  \___/
+echo     |_____ __|__ |  \_| |_____| _/   \_
+echo
+echo
+
+
+
 # Разметка диска
 for i in 'Designing a partition scheme...'; do printf "$i\r"; done
 if [ "$PARTDISK" == "FS" ]
