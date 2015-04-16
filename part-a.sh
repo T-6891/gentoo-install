@@ -178,6 +178,17 @@ fi
 echo -n "${reset}"
 echo
 
+# Копирование конфигурационных файлов
+for i in 'Копирование конфигурационных файлов...'; do printf "$i\r"; done
+cp /mnt/install.conf /mnt/gentoo/mnt/install.conf > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
 # Монтирование необходимых файловых систем
 for i in 'Mounting the necessary filesystems...'; do printf "$i\r"; done
 mount -t proc proc /mnt/gentoo/proc > /dev/null 2>&1
