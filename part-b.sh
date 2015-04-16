@@ -63,7 +63,7 @@ echo
 # Настройка параметров локализации
 for i in 'Настройка параметров локализации...'; do printf "$i\r"; done
 echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
-echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
+echo 'ru_RU.UTF-8 UTF-8' >> /etc/locale.gen
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
