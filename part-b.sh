@@ -155,11 +155,10 @@ echo
 
 # Настройка файловых систем
 for i in 'Настройка файловых систем...'; do printf "$i\r"; done
-echo $DISK1[1]   /boot        ext4    defaults,noatime     0 2 > /etc/fstab
-echo $DISK1[1]   none         swap    sw                   0 0 >> /etc/fstab
-echo $DISK1[1]   /            ext4    noatime              0 1 >> /etc/fstab
+echo $DISK1[2]   /boot        ext4    defaults,noatime     0 2 > /etc/fstab
+echo $DISK1[3]   none         swap    sw                   0 0 >> /etc/fstab
+echo $DISK1[4]   /            ext4    noatime              0 1 >> /etc/fstab
 echo  >> /etc/fstab
-echo $DISK1[1]   /dev/cdrom  /mnt/cdrom   auto    noauto,user          0 0 >> /etc/fstab
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
