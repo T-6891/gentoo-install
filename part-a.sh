@@ -135,21 +135,21 @@ echo
 
 # Настройка опции компиляции
 for i in 'Настройка опции компиляции...'; do printf "$i\r"; done
-echo 'CFLAGS="-march=native -O2 -pipe"' > $MAKECONF > /dev/null 2>&1
-echo 'CXXFLAGS="${CFLAGS}"' >> $MAKECONF > /dev/null 2>&1
-echo 'CHOST="x86_64-pc-linux-gnu"' >> $MAKECONF > /dev/null 2>&1
-echo " " >> $MAKECONF > /dev/null 2>&1
-echo 'USE="-ipv6 bindist mmx sse sse2 vim-syntax symlink"' >> $MAKECONF > /dev/null 2>&1
-echo " " >> $MAKECONF > /dev/null 2>&1
-echo 'PORTDIR="/usr/portage"' >> $MAKECONF > /dev/null 2>&1
-echo 'DISTDIR="${PORTDIR}/distfiles"' >> $MAKECONF > /dev/null 2>&1
-echo 'PKGDIR="${PORTDIR}/packages"' >> $MAKECONF > /dev/null 2>&1
-echo " " >> $MAKECONF > /dev/null 2>&1
-echo MAKEOPTS=\"-j$((`cat /proc/cpuinfo | grep processor | wc -l` + 1))\" >> $MAKECONF > /dev/null 2>&1
-echo " " >> $MAKECONF > /dev/null 2>&1
-echo 'GENTOO_MIRRORS="http://mirror.yandex.ru/gentoo-distfiles/"' >> $MAKECONF > /dev/null 2>&1
-echo 'SYNC="rsync://rsync2.ru.gentoo.org/gentoo-portage"' >> $MAKECONF > /dev/null 2>&1
-echo " " >> $MAKECONF > /dev/null 2>&1
+echo 'CFLAGS="-march=native -O2 -pipe"' > $MAKECONF
+echo 'CXXFLAGS="${CFLAGS}"' >> $MAKECONF
+echo 'CHOST="x86_64-pc-linux-gnu"' >> $MAKECONF
+echo " " >> $MAKECONF
+echo 'USE="-ipv6 bindist mmx sse sse2 vim-syntax symlink unicode"' >> $MAKECONF
+echo " " >> $MAKECONF
+echo 'PORTDIR="/usr/portage"' >> $MAKECONF
+echo 'DISTDIR="${PORTDIR}/distfiles"' >> $MAKECONF
+echo 'PKGDIR="${PORTDIR}/packages"' >> $MAKECONF
+echo " " >> $MAKECONF
+echo MAKEOPTS=\"-j$((`cat /proc/cpuinfo | grep processor | wc -l` + 1))\" >> $MAKECONF
+echo " " >> $MAKECONF
+echo 'GENTOO_MIRRORS="http://mirror.yandex.ru/gentoo-distfiles/"' >> $MAKECONF
+echo 'SYNC="rsync://rsync2.ru.gentoo.org/gentoo-portage"' >> $MAKECONF
+echo " " >> $MAKECONF
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
