@@ -210,8 +210,6 @@ chroot /mnt/gentoo/ /bin/bash -c /tmp/part-2.sh
 # Отмонтирование и перезагрузка
 for i in 'Rebooting the system...'; do printf "$i\r"; done
 cd > /dev/null 2>&1
-umount -l /mnt/gentoo/dev{/shm,/pts,} > /dev/null 2>&1
-umount /mnt/gentoo{/boot,/sys,/proc,} > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
