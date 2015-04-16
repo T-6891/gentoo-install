@@ -30,7 +30,7 @@ fi
 
 while read line
 do
-parted -sa optimal $DISK1 "$line"
+parted -sa optimal $DISK1 "$line"   > /dev/null 2>&1
 done < $PARTDISKSCHEME
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -42,8 +42,8 @@ echo
 
 # Форматирование разделов
 for i in 'Creating file systems...'; do printf "$i\r"; done
-mkfs.ext4 $DISK1[2]
-mkfs.ext4 $DISK1[4]
+mkfs.ext4 $DISK1[2]  > /dev/null 2>&1
+mkfs.ext4 $DISK1[4]  > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -55,8 +55,8 @@ echo
 
 # Активация раздела подкачки
 for i in 'Activating the Swap Partition...'; do printf "$i\r"; done
-mkswap $DISK1[3]
-swapon $DISK1[3]
+mkswap $DISK1[3] > /dev/null 2>&1
+swapon $DISK1[3] > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -67,9 +67,9 @@ echo
 
 # Монтирование
 for i in 'Mounting devices and partitions...'; do printf "$i\r"; done
-mount /dev/sda4 /mnt/gentoo
-mkdir /mnt/gentoo/boot
-mount /dev/sda2 /mnt/gentoo/boot
+mount /dev/sda4 /mnt/gentoo > /dev/null 2>&1
+mkdir /mnt/gentoo/boot > /dev/null 2>&1
+mount /dev/sda2 /mnt/gentoo/boot > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -80,7 +80,7 @@ echo
 
 # Синхронизация времени
 for i in 'Time synchronization...'; do printf "$i\r"; done
-/usr/sbin/ntpdate -u pool.ntp.org 
+/usr/sbin/ntpdate -u pool.ntp.org > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -93,7 +93,6 @@ echo
 for i in 'Downloading the stage tarball'; do printf "$i\r"; done
 cd /mnt/gentoo  > /dev/null 2>&1
 wget http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/`links -source http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/latest-stage3-amd64.txt | grep stage3 | awk '{print $1}'`  > /dev/null 2>&1
-
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -104,7 +103,6 @@ echo
 
 for i in 'Unpacking the stage tarball'; do printf "$i\r"; done
 tar xvjpf stage3-*.tar.bz2  > /dev/null 2>&1
-
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -141,7 +139,7 @@ echo
 
 # Копирование DNS настроек
 for i in 'Copy DNS info...'; do printf "$i\r"; done
-cp -L /etc/resolv.conf /mnt/gentoo/etc/
+cp -L /etc/resolv.conf /mnt/gentoo/etc/ > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -152,11 +150,11 @@ echo
 
 # Монтирование необходимых файловых систем
 for i in 'Mounting the necessary filesystems...'; do printf "$i\r"; done
-mount -t proc proc /mnt/gentoo/proc
-mount --rbind /sys /mnt/gentoo/sys
-mount --make-rslave /mnt/gentoo/sys
-mount --rbind /dev /mnt/gentoo/dev
-mount --make-rslave /mnt/gentoo/dev
+mount -t proc proc /mnt/gentoo/proc > /dev/null 2>&1
+mount --rbind /sys /mnt/gentoo/sys > /dev/null 2>&1
+mount --make-rslave /mnt/gentoo/sys > /dev/null 2>&1
+mount --rbind /dev /mnt/gentoo/dev > /dev/null 2>&1
+mount --make-rslave /mnt/gentoo/dev > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -167,9 +165,9 @@ echo
 
 # Переход в новое окружение (chroot)
 for i in 'Entering the new environment...'; do printf "$i\r"; done
-cd /mnt/gentoo/tmp/
-wget http://public.t-brain.ru/script/part-2.sh
-chmod +x ./part-2.sh
+cd /mnt/gentoo/tmp/ > /dev/null 2>&1
+wget http://public.t-brain.ru/script/part-2.sh > /dev/null 2>&1
+chmod +x ./part-2.sh > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -183,9 +181,9 @@ chroot /mnt/gentoo/ /bin/bash -c /tmp/part-2.sh
 
 # Отмонтирование и перезагрузка
 for i in 'Rebooting the system...'; do printf "$i\r"; done
-cd
-umount -l /mnt/gentoo/dev{/shm,/pts,}
-umount /mnt/gentoo{/boot,/sys,/proc,}
+cd > /dev/null 2>&1
+umount -l /mnt/gentoo/dev{/shm,/pts,} > /dev/null 2>&1
+umount /mnt/gentoo{/boot,/sys,/proc,} > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
