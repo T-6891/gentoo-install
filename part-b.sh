@@ -40,7 +40,7 @@ echo
 
 # Настройка часового пояса
 for i in 'Настройка часового пояса...'; do printf "$i\r"; done
-echo "Europe/Moscow" > /etc/timezone > /dev/null 2>&1
+echo "Europe/Moscow" > /etc/timezone
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -62,8 +62,8 @@ echo
 
 # Настройка параметров локализации
 for i in 'Настройка параметров локализации...'; do printf "$i\r"; done
-echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen > /dev/null 2>&1
-echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen > /dev/null 2>&1
+echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
+echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -131,7 +131,7 @@ echo
 
 # Сборка нового ядра
 for i in 'Сборка нового ядра...'; do printf "$i\r"; done
-make olddefconfig && make modules_install > /dev/null 2>&1
+make && make modules_install > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -155,11 +155,11 @@ echo
 
 # Настройка файловых систем
 for i in 'Настройка файловых систем...'; do printf "$i\r"; done
-echo $DISK1[1]   /boot        ext4    defaults,noatime     0 2 > /etc/fstab > /dev/null 2>&1
-echo $DISK1[1]   none         swap    sw                   0 0 >> /etc/fstab > /dev/null 2>&1
-echo $DISK1[1]   /            ext4    noatime              0 1 >> /etc/fstab > /dev/null 2>&1
-echo  >> /etc/fstab > /dev/null 2>&1
-echo $DISK1[1]   /dev/cdrom  /mnt/cdrom   auto    noauto,user          0 0 >> /etc/fstab > /dev/null 2>&1
+echo $DISK1[1]   /boot        ext4    defaults,noatime     0 2 > /etc/fstab
+echo $DISK1[1]   none         swap    sw                   0 0 >> /etc/fstab
+echo $DISK1[1]   /            ext4    noatime              0 1 >> /etc/fstab
+echo  >> /etc/fstab
+echo $DISK1[1]   /dev/cdrom  /mnt/cdrom   auto    noauto,user          0 0 >> /etc/fstab
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -170,10 +170,10 @@ echo
 
 # Настройка параметров имени комптютера
 for i in 'Настройка параметров имени системы в сети...'; do printf "$i\r"; done
-echo "hostname=\"$HOST\"" > /etc/conf.d/hostname > /dev/null 2>&1
-echo "127.0.0.1       $HOST.$DOMAIN $HOST" > /etc/hosts > /dev/null 2>&1
-echo "127.0.0.1       $HOST.$DOMAIN." >> /etc/hosts > /dev/null 2>&1
-echo "127.0.0.1       localhost" >> /etc/hosts > /dev/null 2>&1
+echo "hostname=\"$HOST\"" > /etc/conf.d/hostname
+echo "127.0.0.1       $HOST.$DOMAIN $HOST" > /etc/hosts
+echo "127.0.0.1       $HOST.$DOMAIN." >> /etc/hosts
+echo "127.0.0.1       localhost" >> /etc/hosts
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -184,9 +184,9 @@ echo
 
 # Настройка параметров сети
 for i in 'Настройка параметров сети...'; do printf "$i\r"; done
-echo "dns_domain_lo=\"$DOMAIN\"" > /etc/conf.d/net > /dev/null 2>&1
-echo "config_$Lan1=\"$IP1 netmask $MASK1\"" >> /etc/conf.d/net > /dev/null 2>&1
-echo "routes_$Lan1=\"default via $GW\"" >> /etc/conf.d/net > /dev/null 2>&1
+echo "dns_domain_lo=\"$DOMAIN\"" > /etc/conf.d/net
+echo "config_$Lan1=\"$IP1 netmask $MASK1\"" >> /etc/conf.d/net
+echo "routes_$Lan1=\"default via $GW\"" >> /etc/conf.d/net
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
