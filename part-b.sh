@@ -14,6 +14,11 @@ green=$(tput setf 2)
 reset=$(tput sgr0)
 toend=$(tput hpa $(tput cols))$(tput cub 6)
 
+touch /etc/portage/package.license
+touch /etc/portage/package.keywords
+touch /etc/portage/package.use
+touch /etc/portage/package.unmask
+touch /etc/portage/package.mask
 
 # Установка свежего среза портеджей
 for i in 'Установка свежего среза портеджей...'; do printf "$i\r"; done
