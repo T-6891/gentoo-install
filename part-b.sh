@@ -350,7 +350,7 @@ for i in 'Установка компонента gentoolkit ...'; do printf "$i
 emerge -q app-portage/gentoolkit > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
-elsesys-process/iotop
+else
     echo -n  "${toend}${reset}[${red}fail${reset}]"
 fi
 echo -n "${reset}"
@@ -477,7 +477,7 @@ echo -n "${reset}"
 echo
 
 for i in 'Установка утилиты для анализа потребления дисковой полосы iotop ...'; do printf "$i\r"; done
-sys-process/iotop
+emerge -q sys-process/iotop > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
