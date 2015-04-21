@@ -1,1 +1,17 @@
+CFLAGS="-march=native -O2 -pipe"
+CXXFLAGS="${CFLAGS}"
+CHOST="x86_64-pc-linux-gnu"
 
+VIDEO_CARDS="intel"
+LINGUAS="en ru"
+USE="ipv6 X a52 aac aalib acl acpi apm bzip2 cairo clamav cracklib crypt cups curl cvs dbus djvu dri dv dvd dvdr encode examples exif expat fbcon ffmpeg flac fontconfig gd geoip gif gimp git gphoto2 gstreamer gzip hddtemp iconv icu inotify ios ipod jpeg jpeg2k lame lm_sensors lzma lzo mad mhash mime mmap mms mmx modules mp3 mp4 mpeg ncurses networkmanager nls nntp ogg opengl pda pdf png policykit pulseaudio quicktime raw rdesktop rss samba smp snmp soap sockets sound sse sse2 sse3 ssse3 sse4_1 startup-notification svg svga symlink syslog taglib tcpd threads tiff truetype udev unicode upnp upnp-av upower usb v4l vaapi vim-syntax vnc vorbis wifi wmf x264 xml zlib fuse cron consolekit xkb ssh mount tools utils highlight uuid minizip i3 abi_x86_32"
+
+PORTDIR="/usr/portage"
+DISTDIR="${PORTDIR}/distfiles"
+PKGDIR="${PORTDIR}/packages"
+
+MAKEOPTS="-j5"
+
+GENTOO_MIRRORS="http://mirror.yandex.ru/gentoo-distfiles/"
+SYNC="rsync://rsync2.ru.gentoo.org/gentoo-portage"
+source /var/lib/layman/make.conf
