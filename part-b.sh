@@ -256,6 +256,236 @@ fi
 echo -n "${reset}"
 echo
 
+for i in 'Установка редактора VIM ...'; do printf "$i\r"; done
+emerge -q app-editors/vim > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка редактора Nano  ...'; do printf "$i\r"; done
+emerge -q app-editors/nano > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка файлового менеджера Midnight Commander ...'; do printf "$i\r"; done
+emerge -q app-misc/mc > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка мониторa процессов htop ...'; do printf "$i\r"; done
+emerge -q sys-process/htop > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка мониторa процессов atop ...'; do printf "$i\r"; done
+emerge -q sys-process/atop > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка мониторa процессов Glances ...'; do printf "$i\r"; done
+emerge -q sys-process/glances > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка монитора загрузки сетевых интерфейсов Nload ...'; do printf "$i\r"; done
+emerge -q net-analyzer/nload > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка консольного мультиплексорa Screen ...'; do printf "$i\r"; done
+emerge -q app-misc/screen > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка компонента sudo ...'; do printf "$i\r"; done
+emerge -q app-admin/sudo > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка компонента gentoolkit ...'; do printf "$i\r"; done
+emerge -q app-portage/gentoolkit > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+elsesys-process/iotop
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка компонента pciutils ...'; do printf "$i\r"; done
+emerge -q sys-apps/pciutils > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка компонента usbutils ...'; do printf "$i\r"; done
+emerge -q sys-apps/usbutils > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка компонента sysstat ...'; do printf "$i\r"; done
+emerge -q app-admin/sysstat > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка протеджа netcat ...'; do printf "$i\r"; done
+emerge -q net-analyzer/gnu-netcat > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка протеджа telnet ...'; do printf "$i\r"; done
+emerge -q net-misc/telnet-bsd > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка компонента IPTables ...'; do printf "$i\r"; done
+emerge -q net-firewall/iptables > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка архиватора pbzip2 ...'; do printf "$i\r"; done
+emerge -q app-arch/pbzip2 > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка архиавтора unzip ...'; do printf "$i\r"; done
+emerge -q app-arch/unzip > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка консольного FTP-клиента lftp ...'; do printf "$i\r"; done
+emerge -q net-ftp/lftp > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка компонента lsof ...'; do printf "$i\r"; done
+emerge -q sys-process/lsof > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка компонента ncdu ...'; do printf "$i\r"; done
+emerge -q sys-fs/ncdu > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка архиватора LZ4 ...'; do printf "$i\r"; done
+emerge -q app-arch/lz4 > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка утилиты для анализа потребления дисковой полосы iotop ...'; do printf "$i\r"; done
+sys-process/iotop
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
 #Удаленный доступ
 for i in 'Добавление службы SSH в автозагрузку...'; do printf "$i\r"; done
 rc-update add sshd default > /dev/null 2>&1
