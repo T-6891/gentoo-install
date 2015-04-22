@@ -1,57 +1,58 @@
 #!/bin/bash
 
-# Console dialog
-red=$(tput setf 4)
-green=$(tput setf 2)
-reset=$(tput sgr0)
-toend=$(tput hpa $(tput cols))$(tput cub 6)
+CONFIG="/tmp/install.conf"
 
-#Message for user
-MSG="Message for user..."
-
-# Command
-ls /
-
-if [ $? -eq 0 ]; then
-    echo -n $MSG  "${toend}${reset}[${green}OK${reset}]"
-else
-    echo -n $MSG  "${toend}${reset}[${red}fail${reset}]"
-fi
-echo -n "${reset}"
-echo
-################################
-
-# Импорт сетевых настроек
 DIALOG=${DIALOG=dialog}
-tempfile2=`tempfile2 2>/dev/null` || tempfile2=/tmp/snet$$
-tempfile3=`tempfile3 2>/dev/null` || tempfile3=/tmp/mnet$$
-trap "rm -f $tempfile2 $tempfile3" 0 1 2 5 15
+DT=/tmp/DISKS
+temp2=`temp2 2>/dev/null` || temp2=/tmp/inet
+tempfile3=`tempfile3 2>/dev/null` || tempfile3=/tmp/ipnet
+tempfile4=`tempfile4 2>/dev/null` || tempfile4=/tmp/manet
+tempfile5=`tempfile5 2>/dev/null` || tempfile5=/tmp/gwnet
+tempfile6=`tempfile6 2>/dev/null` || tempfile6=/tmp/honet
+tempfile7=`tempfile7 2>/dev/null` || tempfile7=/tmp/donet
+part=`part 2>/dev/null` || part=/tmp/part
+tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/sdisk$$
 
-dialog --backtitle "Network Settings" --title "Network Settings" \
---no-shadow --menu "Please import the active network settings or enter manually." 0 0 0 "import" "import the active network settings?" \
-"manual" "Manual Ip Setting" 2> $tempfile2
+dialog --backtitle "Настройка сети" --title "Настройка сети" \
+--no-shadow --menu "Импортировать текущие сетевые настройки либо введите их вручную?" 0 0 0 "import" "Импортировать текущие сетевые настройки?" \
+"manual" "Ввести вручную" 2> $temp2
 
 retval=$?
-choice=`cat $tempfile2`
+choice=`cat $temp2`
 case $choice in
         "import")  
         IFACE=`ifconfig | grep RUNNING | awk '{print $1}' | sed -r 's/[:^]+//' | grep -v lo`
         IP=`ifconfig $IFACE | grep inet | grep -v inet6 | grep -v "127.0.0.1" | awk -v RS=' ' '!(NR%1){gsub(/\n/," ");print} ' | grep -A 1 inet | grep -v inet`
         MASK=`ifconfig $IFACE  | grep inet | grep -v inet6 | grep -v "127.0.0.1" | awk -v RS=' ' '!(NR%1){gsub(/\n/," ");print} ' | grep -A 1 netmask | grep -v netmask`
         GW=`netstat -rn | awk '{print $1, $2}' | grep "0.0.0.0 " | awk '{print $2}'`
+        dialog --backtitle "Настройка сети" --title "Имя компьютера" \
+        --no-shadow --inputbox "Введите hostname:" 0 0 "YourServer" 2> $tempfile6
+        HOST=`cat  $tempfile6`
+        dialog --backtitle "Настройка сети" --title "Домен" \
+        --no-shadow --inputbox "Введите домен:" 0 0 "company.ltd" 2> $tempfile7
+        DOMAIN=`cat  $tempfile7`
         ;;
         "manual")
-        dialog --backtitle "Dialog Test Example" --title "IP Settings" \
-        --no-shadow --inputbox "EnterIP:" 0 0 "192.168.1.100" 2> $tempfile3
-        IPPI=`cat  $tempfile3`
+        IFACE=`ifconfig | grep RUNNING | awk '{print $1}' | sed -r 's/[:^]+//' | grep -v lo`
+        dialog --backtitle "Настройка сети" --title "IP адрес" \
+        --no-shadow --inputbox "Введите IP адрес:" 0 0 "172.16.50.218" 2> $tempfile3
+        IP=`cat  $tempfile3`
+        dialog --backtitle "Настройка сети" --title "Маска сети" \
+        --no-shadow --inputbox "Введите маску сети:" 0 0 "255.255.255.0" 2> $tempfile4
+        MASK=`cat  $tempfile4`
+        dialog --backtitle "Настройка сети" --title "Шлюз по умолчанию" \
+        --no-shadow --inputbox "Введите адрес шлюза:" 0 0 "172.16.50.1" 2> $tempfile5
+        GW=`cat  $tempfile5`
+        dialog --backtitle "Настройка сети" --title "Имя компьютера" \
+        --no-shadow --inputbox "Введите hostname:" 0 0 "YourServer" 2> $tempfile6
+        HOST=`cat  $tempfile6`
+        dialog --backtitle "Настройка сети" --title "Домен" \
+        --no-shadow --inputbox "Введите домен:" 0 0 "company.ltd" 2> $tempfile7
+        DOMAIN=`cat  $tempfile7`
         ;;
 esac
 
-
-# Выбор диска для установки
-DT=/tmp/DISKS$$
-
-fdisk -l | grep "Disk " | grep -v identifier | grep -v loop0 | awk '{print $2, $3 $4}' | sed -r 's/(.*),$/\1/' | awk '{print $0" off "}' > $DT 
+fdisk -l | grep "Disk " | grep -v identifier | grep -v loop0 | awk '{print $2, $3 $4}' | sed -r 's/(.*),$/\1/' | awk '{print $0" off "}' > $DT
 
 NDISK1=`awk 'NR == 1' $DT | awk '{print $1}' | sed -r 's/(.*):$/\1/'`
 DSIZE1=`awk 'NR == 1' $DT | awk '{print $2, $3}'`
@@ -66,10 +67,6 @@ DSIZE5=`awk 'NR == 5' $DT | awk '{print $2, $3}'`
 NDISK6=`awk 'NR == 6' $DT | awk '{print $1}' | sed -r 's/(.*):$/\1/'`
 DSIZE6=`awk 'NR == 6' $DT | awk '{print $2, $3}'`
 
-DIALOG=${DIALOG=dialog}
-tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/sdisk$$
-trap "rm -f $tempfile $DT" 0 1 2 5 15
-
 $DIALOG --backtitle "Preparing the disks" \
         --title "Selecting disks" --clear \
         --radiolist "Please specify the drive on which the system will be installed" 16 50 6 \
@@ -81,9 +78,9 @@ $DIALOG --backtitle "Preparing the disks" \
         $NDISK5 $DSIZE5 \
         $NDISK6 $DSIZE6  2> $tempfile
 
+DISK1=`cat $tempfile`
 retval=$?
 
-DISK=`cat $tempfile`
 case $retval in
   1)
     echo "Cancel pressed.";;
@@ -91,52 +88,54 @@ case $retval in
     echo "ESC pressed.";;
 esac
 
-# Выбор схемы разбивки дисков
-DIALOG=${DIALOG=dialog}
-tempfile4=`tempfile4 2>/dev/null` || tempfile4=/tmp/pdisk$$
-trap "rm -f $tempfile4" 0 1 2 5 15
-
-dialog --backtitle "Preparing the disks"  --title "The partitioning of the hard disk." \
---menu "Please select a layout scheme of the hard disk:" 15 55 5 \
-1 "Use all available space on the disk?" \
-2 "Use all available space on the disk for LVM?" 2> $tempfile4
+$DIALOG --backtitle "Preparing the disks" \
+        --title "Selecting disks" --clear \
+        --radiolist "Please specify the drive on which the system will be installed" 16 50 6 \
+        \
+        FS "Разметка всего диска" ON \
+        LVM "Разметка для LVM" off 2> $part
 
 retval=$?
 
-PDISK=`cat $tempfile4`
-case $PDISK in
+PARTDISK=`cat $part`
+case $retval in
   1)
-  dialog --title "Warning!!!" --yesno "All data on the selected disk will be destroyed! You sure?" 6 62  2> $tempfile4
-        retval=$?
-        case $retval in
-          0)
-parted -sa optimal $DISK mklabel gpt
-parted -sa optimal $DISK unit mib
-parted -sa optimal $DISK mkpart primary 1 3
-parted -sa optimal $DISK name 1 grub
-parted -sa optimal $DISK set 1 bios_grub on
-parted -sa optimal $DISK mkpart primary 3 131
-parted -sa optimal $DISK name 2 boot
-parted -sa optimal $DISK mkpart primary 131 643
-parted -sa optimal $DISK name 3 swap
-parted -sa optimal $DISK mkpart primary 643 100%
-parted -sa optimal $DISK name 4 rootfs
-parted -sa optimal $DISK set 2 boot on
-          ;;
-          1)
-            exit
-        ;;
-        esac
-  ;;
-  2)
-    echo "Not worked...";;
+    echo "Cancel pressed.";;
+  255)
+    echo "ESC pressed.";;
 esac
 
-# Разметка диска исходя из схемы
-file="/tmp/fs.conf"
-while read line
-do
-# display $line or do somthing with $line
-parted -sa optimal $DISK1 "$line"
-done < $file
 
+trap "rm -f $temp2 $tempfile3 $tempfile4 $tempfile5 $tempfile6 $tempfile7 $tempfile $part $DT" 0 1 2 5 15
+
+# ================================================================================================================================================================================
+
+echo "Lan1     = $IFACE"        >  $CONFIG 
+echo "IP1      = $IP"           >> $CONFIG
+echo "MASK1    = $MASK"         >> $CONFIG
+echo "GW       = $GW"           >> $CONFIG
+echo " "
+echo "HOST     = $HOST"         >> $CONFIG
+echo "DOMAIN   = $DOMAIN"       >> $CONFIG
+echo " "
+echo "DISK1    = $DISK1"        >> $CONFIG
+echo "PARTDISK = $PARTDISK"     >> $CONFIG
+echo " "                        >> $CONFIG
+
+echo -n "Готовы ли вы приступить к установке? (y/n) "
+
+read item
+case "$item" in
+    y|Y) echo "Ввели «y», продолжаем..."
+        ;;
+    n|N) echo "Ввели «n», завершаем..."
+        exit 0
+        ;;
+    *) echo "Ничего не ввели. Выполняем действие по умолчанию..."
+        ;;
+esac
+
+cd /tmp
+wget http://public.t-brain.ru/script/part-1.sh > /dev/null 2>&1
+chmod +x ./part-1.sh > /dev/null 2>&1
+time ./part-1.sh
