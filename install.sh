@@ -139,3 +139,4 @@ cd /tmp
 wget http://public.t-brain.ru/script/part-1.sh > /dev/null 2>&1
 chmod +x ./part-1.sh > /dev/null 2>&1
 time ./part-1.sh
+#
