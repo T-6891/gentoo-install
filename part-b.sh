@@ -502,6 +502,16 @@ fi
 echo -n "${reset}"
 echo
 
+for i in 'Установка инструментa диагностики сети mtr...'; do printf "$i\r"; done
+emerge -q net-analyzer/mtr > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
 #Удаленный доступ
 for i in 'Добавление службы SSH в автозагрузку...'; do printf "$i\r"; done
 rc-update add sshd default > /dev/null 2>&1
