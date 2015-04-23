@@ -100,6 +100,21 @@ fi
 echo -n "${reset}"
 echo
 
+# Выбор профиля локализации
+for i in 'Оптимизация управления историей ввода ...'; do printf "$i\r"; done
+echo -n ' ' >> /etc/inputrc
+echo -n '# map "page up" and "page down" to search history based on current cmdline' >> /etc/inputrc
+echo -n '"\e[5~": history-search-backward' >> /etc/inputrc
+echo -n '"\e[6~": history-search-forward'  >> /etc/inputrc
+echo -n ' ' >> /etc/inputrc
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
 # Обновление переменных окружения
 for i in 'Обновление переменных окружения...'; do printf "$i\r"; done
 env-update > /dev/null 2>&1
