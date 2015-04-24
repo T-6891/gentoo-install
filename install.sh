@@ -13,9 +13,9 @@ tempfile7=`tempfile7 2>/dev/null` || tempfile7=/tmp/donet
 part=`part 2>/dev/null` || part=/tmp/part
 tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/sdisk$$
 
-dialog --backtitle "Настройка сети" --title "Настройка сети" \
---no-shadow --menu "Импортировать текущие сетевые настройки либо введите их вручную?" 0 0 0 "import" "Импортировать текущие сетевые настройки?" \
-"manual" "Ввести вручную" 2> $temp2
+dialog --backtitle "Network setting" --title "Network setting" \
+--no-shadow --menu "Import current network settings or enter them manually?" 0 0 0 "import" "Import the current network settings?" \
+"manual" "Enter manually" 2> $temp2
 
 retval=$?
 choice=`cat $temp2`
@@ -25,29 +25,29 @@ case $choice in
         IP=`ifconfig $IFACE | grep inet | grep -v inet6 | grep -v "127.0.0.1" | awk -v RS=' ' '!(NR%1){gsub(/\n/," ");print} ' | grep -A 1 inet | grep -v inet`
         MASK=`ifconfig $IFACE  | grep inet | grep -v inet6 | grep -v "127.0.0.1" | awk -v RS=' ' '!(NR%1){gsub(/\n/," ");print} ' | grep -A 1 netmask | grep -v netmask`
         GW=`netstat -rn | awk '{print $1, $2}' | grep "0.0.0.0 " | awk '{print $2}'`
-        dialog --backtitle "Настройка сети" --title "Имя компьютера" \
-        --no-shadow --inputbox "Введите hostname:" 0 0 "YourServer" 2> $tempfile6
+        dialog --backtitle "Network setting" --title "computer Name" \
+        --no-shadow --inputbox "Enter hostname:" 0 0 "YourServer" 2> $tempfile6
         HOST=`cat  $tempfile6`
-        dialog --backtitle "Настройка сети" --title "Домен" \
-        --no-shadow --inputbox "Введите домен:" 0 0 "company.ltd" 2> $tempfile7
+        dialog --backtitle "Network setting" --title "Domain" \
+        --no-shadow --inputbox "Enter Domain:" 0 0 "company.ltd" 2> $tempfile7
         DOMAIN=`cat  $tempfile7`
         ;;
         "manual")
         IFACE=`ifconfig | grep RUNNING | awk '{print $1}' | sed -r 's/[:^]+//' | grep -v lo`
-        dialog --backtitle "Настройка сети" --title "IP адрес" \
-        --no-shadow --inputbox "Введите IP адрес:" 0 0 "172.16.50.218" 2> $tempfile3
+        dialog --backtitle "Network setting" --title "IP address" \
+        --no-shadow --inputbox "Enter IP адрес:" 0 0 "172.16.50.218" 2> $tempfile3
         IP=`cat  $tempfile3`
-        dialog --backtitle "Настройка сети" --title "Маска сети" \
-        --no-shadow --inputbox "Введите маску сети:" 0 0 "255.255.255.0" 2> $tempfile4
+        dialog --backtitle "Network setting" --title "Network MASK" \
+        --no-shadow --inputbox "Enter маску сети:" 0 0 "255.255.255.0" 2> $tempfile4
         MASK=`cat  $tempfile4`
-        dialog --backtitle "Настройка сети" --title "Шлюз по умолчанию" \
-        --no-shadow --inputbox "Введите адрес шлюза:" 0 0 "172.16.50.1" 2> $tempfile5
+        dialog --backtitle "Network setting" --title "Gateway" \
+        --no-shadow --inputbox "Enter Gateway:" 0 0 "172.16.50.1" 2> $tempfile5
         GW=`cat  $tempfile5`
-        dialog --backtitle "Настройка сети" --title "Имя компьютера" \
-        --no-shadow --inputbox "Введите hostname:" 0 0 "YourServer" 2> $tempfile6
+        dialog --backtitle "Network setting" --title "computer Name" \
+        --no-shadow --inputbox "Enter hostname:" 0 0 "YourServer" 2> $tempfile6
         HOST=`cat  $tempfile6`
-        dialog --backtitle "Настройка сети" --title "Домен" \
-        --no-shadow --inputbox "Введите домен:" 0 0 "company.ltd" 2> $tempfile7
+        dialog --backtitle "Network setting" --title "Domain" \
+        --no-shadow --inputbox "Enter Domain:" 0 0 "company.ltd" 2> $tempfile7
         DOMAIN=`cat  $tempfile7`
         ;;
 esac
@@ -92,8 +92,8 @@ $DIALOG --backtitle "Preparing the disks" \
         --title "Selecting disks" --clear \
         --radiolist "Please specify the drive on which the system will be installed" 16 50 6 \
         \
-        FS "Разметка всего диска" ON \
-        LVM "Разметка для LVM" off 2> $part
+        FS "Partitioning the entire disc" ON \
+        LVM "Partitioning for LVM" off 2> $part
 
 retval=$?
 
