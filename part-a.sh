@@ -197,7 +197,7 @@ echo
 # Переход в новое окружение (chroot)
 for i in 'Переход в новое окружение (chroot)...'; do printf "$i\r"; done
 cd /mnt/gentoo/tmp/ > /dev/null 2>&1
-wget http://public.t-brain.ru/script/part-2.sh > /dev/null 2>&1
+wget http://public.t-brain.ru/gentoo-install/part-2.sh > /dev/null 2>&1
 chmod +x ./part-2.sh > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
