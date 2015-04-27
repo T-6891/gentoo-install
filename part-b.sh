@@ -31,6 +31,16 @@ fi
 echo -n "${reset}"
 echo
 
+for i in 'Установка eix  ...'; do printf "$i\r"; done
+emerge -q app-portage/eix > /dev/null 2>&1
+eix-sync > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Настройка профиля
 for i in 'Настройка профиля системы...'; do printf "$i\r"; done
