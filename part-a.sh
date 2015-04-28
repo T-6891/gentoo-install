@@ -138,7 +138,7 @@ echo 'CFLAGS="-march=native -O2 -pipe"' > $MAKECONF
 echo 'CXXFLAGS="${CFLAGS}"' >> $MAKECONF
 echo 'CHOST="x86_64-pc-linux-gnu"' >> $MAKECONF
 echo " " >> $MAKECONF
-echo 'USE="-ipv6 bindist mmx sse sse2 vim-syntax symlink unicode"' >> $MAKECONF
+echo 'USE="-ipv6 -X -cups -alsa bindist mmx sse sse2 acl threads sockets symlink vim-syntax unicode"' >> $MAKECONF
 echo " " >> $MAKECONF
 echo 'PORTDIR="/usr/portage"' >> $MAKECONF
 echo 'DISTDIR="${PORTDIR}/distfiles"' >> $MAKECONF
