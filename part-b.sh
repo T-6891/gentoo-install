@@ -14,11 +14,11 @@ green=$(tput setf 2)
 reset=$(tput sgr0)
 toend=$(tput hpa $(tput cols))$(tput cub 6)
 
-touch /etc/portage/package.license
-touch /etc/portage/package.keywords
-touch /etc/portage/package.use
-touch /etc/portage/package.unmask
-touch /etc/portage/package.mask
+#touch /etc/portage/package.license
+#touch /etc/portage/package.keywords
+#touch /etc/portage/package.use
+#touch /etc/portage/package.unmask
+#touch /etc/portage/package.mask
 
 # Установка свежего среза портеджей
 for i in 'Установка свежего среза портеджей...'; do printf "$i\r"; done
@@ -369,6 +369,7 @@ echo
 
 for i in 'Установка компонента sudo ...'; do printf "$i\r"; done
 emerge -q app-admin/sudo > /dev/null 2>&1
+echo  "%wheel ALL=(ALL) ALL" >> /etc/sudoers
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
