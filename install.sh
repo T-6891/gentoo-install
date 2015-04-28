@@ -122,6 +122,12 @@ echo "DISK1    = $DISK1"        >> $CONFIG
 echo "PARTDISK = $PARTDISK"     >> $CONFIG
 echo " "                        >> $CONFIG
 
+
+
+cat $CONFIG
+
+echo " "
+echo " "
 echo -n "Готовы ли вы приступить к установке? (y/n) "
 
 read item
