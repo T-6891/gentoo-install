@@ -112,11 +112,11 @@ echo
 
 # Выбор профиля локализации
 for i in 'Оптимизация управления историей ввода ...'; do printf "$i\r"; done
-echo -n ' ' >> /etc/inputrc
-echo -n '# map "page up" and "page down" to search history based on current cmdline' >> /etc/inputrc
-echo -n '"\e[5~": history-search-backward' >> /etc/inputrc
-echo -n '"\e[6~": history-search-forward'  >> /etc/inputrc
-echo -n ' ' >> /etc/inputrc
+echo  ' ' >> /etc/inputrc
+echo  '# map "page up" and "page down" to search history based on current cmdline' >> /etc/inputrc
+echo  '"\e[5~": history-search-backward' >> /etc/inputrc
+echo  '"\e[6~": history-search-forward'  >> /etc/inputrc
+echo  ' ' >> /etc/inputrc
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
