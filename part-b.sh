@@ -252,8 +252,8 @@ echo
 
 # Компонент для ведения системных логов
 for i in 'Установка службы ведения системных логов...'; do printf "$i\r"; done
-emerge -q app-admin/syslog-ng > /dev/null 2>&1
-rc-update add syslog-ng default > /dev/null 2>&1
+emerge -q app-admin/rsyslog > /dev/null 2>&1
+rc-update add rsyslog default > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
