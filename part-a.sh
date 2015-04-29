@@ -147,8 +147,14 @@ echo " " >> $MAKECONF
 echo MAKEOPTS=\"-j$((`cat /proc/cpuinfo | grep processor | wc -l` + 1))\" >> $MAKECONF
 echo " " >> $MAKECONF
 echo 'GENTOO_MIRRORS="http://mirror.yandex.ru/gentoo-distfiles/"' >> $MAKECONF
-echo 'SYNC="rsync://rsync2.ru.gentoo.org/gentoo-portage"' >> $MAKECONF
 echo " " >> $MAKECONF
+mkdir -p /etc/portage/repos.conf/ > /dev/null 2>&1
+echo '[gentoo]' > /etc/portage/repos.conf/gentoo.conf
+echo 'location = /usr/portage' >> /etc/portage/repos.conf/gentoo.conf
+echo 'sync-type = rsync' >> /etc/portage/repos.conf/gentoo.conf
+echo 'sync-uri = rsync://mirror.yandex.ru/gentoo-portage' >> /etc/portage/repos.conf/gentoo.conf
+echo 'auto-sync = yes' >> /etc/portage/repos.conf/gentoo.conf
+echo ' ' >> /etc/portage/repos.conf/gentoo.conf
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
