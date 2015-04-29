@@ -590,4 +590,6 @@ fi
 echo -n "${reset}"
 echo
 
+rm -rf /stage3-amd64-*.tar.bz2
+
 exit
