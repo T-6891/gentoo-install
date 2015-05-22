@@ -40,10 +40,10 @@ echo ''
 for i in 'Создание разделов диска...'; do printf "$i\r"; done
 if [ "$PARTDISK" == "FS" ]
 then
-        wget http://public.t-brain.ru/conf/fs.conf > /dev/null 2>&1
+        wget http://public.t-brain.ru/gentoo-install/conf/fs.conf > /dev/null 2>&1
         PARTDISKSCHEME="fs.conf"
 else
-        wget http://public.t-brain.ru/conf/lvm.conf > /dev/null 2>&1
+        wget http://public.t-brain.ru/gentoo-install/conf/lvm.conf > /dev/null 2>&1
         PARTDISKSCHEME="lvm.conf"
 fi
 
