@@ -139,7 +139,7 @@ echo
 
 # Установка исходных кодов ядра
 for i in 'Установка исходных кодов ядра...'; do printf "$i\r"; done
-emerge -q sys-kernel/gentoo-sources > /dev/null 2>&1
+emerge -q sys-kernel/gentoo-sources
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -150,8 +150,8 @@ echo
 
 # Настройка ядра
 for i in 'Настройка ядра...'; do printf "$i\r"; done
-cd /usr/src/linux > /dev/null 2>&1
-wget public.t-brain.ru/gentoo-install/conf/kernel -O /usr/src/linux/.config > /dev/null 2>&1
+cd /usr/src/linux
+wget public.t-brain.ru/gentoo-install/conf/kernel -O /usr/src/linux/.config
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -162,8 +162,8 @@ echo
 
 # Сборка нового ядра
 for i in 'Сборка нового ядра...'; do printf "$i\r"; done
-make  > /dev/null 2>&1
-make modules_install > /dev/null 2>&1
+make
+make modules_install
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -174,9 +174,9 @@ echo
 
 # Установка нового ядра
 for i in 'Установка нового ядра...'; do printf "$i\r"; done
-make install > /dev/null 2>&1
-mkdir -p /boot/efi/boot > /dev/null 2>&1
-cp /boot/vmlinuz* /boot/efi/boot/bootx64.efi > /dev/null 2>&1
+make install
+mkdir -p /boot/efi/boot
+cp /boot/vmlinuz* /boot/efi/boot/bootx64.efi
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
