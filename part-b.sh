@@ -139,7 +139,7 @@ echo
 
 # Установка исходных кодов ядра
 for i in 'Установка исходных кодов ядра...'; do printf "$i\r"; done
-echo ">sys-kernel/sys-kernel/gentoo-sources-3.18.12" >> /etc/portage/package.mask/gentoo-sources
+echo ">sys-kernel/gentoo-sources-3.18.12" >> /etc/portage/package.mask/gentoo-sources
 emerge -q sys-kernel/gentoo-sources
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -151,8 +151,8 @@ echo
 
 # Настройка ядра
 for i in 'Настройка ядра...'; do printf "$i\r"; done
-cd /usr/src/linux
-wget public.t-brain.ru/gentoo-install/conf/kernel -O /usr/src/linux/.config
+cd /usr/src/linux > /dev/null 2>&1
+wget public.t-brain.ru/gentoo-install/conf/kernel -O /usr/src/linux/.config > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -163,8 +163,8 @@ echo
 
 # Сборка нового ядра
 for i in 'Сборка нового ядра...'; do printf "$i\r"; done
-make
-make modules_install
+make > /dev/null 2>&1
+make modules_install > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -175,9 +175,9 @@ echo
 
 # Установка нового ядра
 for i in 'Установка нового ядра...'; do printf "$i\r"; done
-make install
-mkdir -p /boot/efi/boot
-cp /boot/vmlinuz* /boot/efi/boot/bootx64.efi
+make install > /dev/null 2>&1
+mkdir -p /boot/efi/boot > /dev/null 2>&1
+cp /boot/vmlinuz* /boot/efi/boot/bootx64.efi > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
