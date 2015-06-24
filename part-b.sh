@@ -139,7 +139,7 @@ echo
 
 # Установка исходных кодов ядра
 for i in 'Установка исходных кодов ядра...'; do printf "$i\r"; done
-echo ">sys-kernel/gentoo-sources-3.18.12" >> /etc/portage/package.mask/gentoo-sources
+echo ">sys-kernel/gentoo-sources-3.18.16" >> /etc/portage/package.mask/gentoo-sources
 emerge -q sys-kernel/gentoo-sources > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
