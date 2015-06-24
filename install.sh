@@ -35,10 +35,10 @@ case $choice in
         "manual")
         IFACE=`ifconfig | grep RUNNING | awk '{print $1}' | sed -r 's/[:^]+//' | grep -v lo`
         dialog --backtitle "Network setting" --title "IP address" \
-        --no-shadow --inputbox "Enter IP адрес:" 0 0 "172.16.50.218" 2> $tempfile3
+        --no-shadow --inputbox "Enter IP:" 0 0 "172.16.50.218" 2> $tempfile3
         IP=`cat  $tempfile3`
         dialog --backtitle "Network setting" --title "Network MASK" \
-        --no-shadow --inputbox "Enter маску сети:" 0 0 "255.255.255.0" 2> $tempfile4
+        --no-shadow --inputbox "Enter network mask:" 0 0 "255.255.255.0" 2> $tempfile4
         MASK=`cat  $tempfile4`
         dialog --backtitle "Network setting" --title "Gateway" \
         --no-shadow --inputbox "Enter Gateway:" 0 0 "172.16.50.1" 2> $tempfile5
