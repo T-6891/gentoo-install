@@ -43,13 +43,17 @@ Gentoo Linux - Это отличный дистрибутив Linux, в кото
 
 Загрузка инсталлятора
 
+```shall
 cd /tmp
 wget http://public.t-brain.ru/gentoo-install/install.sh
 chmod +x
+```
 
 Запуск
 
+```shell
 ./install.sh
+```
 
 Далее следовать указаниям мастера настройки.
 
