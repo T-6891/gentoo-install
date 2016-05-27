@@ -47,7 +47,8 @@
 
 ```
 cd /tmp
-wget http://public.t-brain.ru/gentoo-install/install.sh
+git clone https://github.com/T-6891/gentoo-install
+cd ./gentoo-install
 chmod +x
 ```
 
