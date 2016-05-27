@@ -49,7 +49,7 @@
 cd /tmp
 git clone https://github.com/T-6891/gentoo-install
 cd ./gentoo-install
-chmod +x
+chmod +x install.sh
 ```
 
 Запуск
