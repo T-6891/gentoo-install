@@ -139,7 +139,7 @@ echo
 
 # Установка исходных кодов ядра
 for i in 'Установка исходных кодов ядра...'; do printf "$i\r"; done
-emerge -q sys-kernel/gentoo-sources:4.4.6 > /dev/null 2>&1
+emerge -q sys-kernel/gentoo-sources > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -163,6 +163,7 @@ echo
 # Сборка нового ядра
 for i in 'Сборка нового ядра...'; do printf "$i\r"; done
 make olddefconfig > /dev/null 2>&1
+make > /dev/null 2>&1
 make modules_install > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
