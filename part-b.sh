@@ -162,7 +162,7 @@ echo
 
 # Сборка нового ядра
 for i in 'Сборка нового ядра...'; do printf "$i\r"; done
-make > /dev/null 2>&1
+make olddefconfig > /dev/null 2>&1
 make modules_install > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
