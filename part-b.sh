@@ -31,16 +31,6 @@ fi
 echo -n "${reset}"
 echo
 
-for i in 'Установка eix  ...'; do printf "$i\r"; done
-emerge -q app-portage/eix > /dev/null 2>&1
-eix-sync > /dev/null 2>&1
-if [ $? -eq 0 ]; then
-    echo -n  "${toend}${reset}[${green}OK${reset}]"
-else
-    echo -n  "${toend}${reset}[${red}fail${reset}]"
-fi
-echo -n "${reset}"
-echo
 
 # Настройка профиля
 for i in 'Настройка профиля системы...'; do printf "$i\r"; done
@@ -278,6 +268,17 @@ echo
 #Индексация файлов
 for i in 'Установка службы индексации файлов...'; do printf "$i\r"; done
 emerge -q sys-apps/mlocate > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+for i in 'Установка eix  ...'; do printf "$i\r"; done
+emerge -q app-portage/eix > /dev/null 2>&1
+eix-sync > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -593,7 +594,8 @@ echo
 
 for i in 'Настройка загрузчика операционной системы...'; do printf "$i\r"; done
 sed -r 's/#*\s*GRUB_GFXMODE=640x480/GRUB_GFXMODE=1920x1080,1280x1024,1024x768/g' -i /etc/default/grub
-sed -r 's/#*\s*GRUB_GFXPAYLOAD_LINUX=/GRUB_GFXPAYLOAD_LINUX=keep' -i /etc/default/grub
+sed -r 's/#*\s*GRUB_GFXPAYLOAD_LINUX=
+/GRUB_GFXPAYLOAD_LINUX=keep' -i /etc/default/grub
 grub2-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
