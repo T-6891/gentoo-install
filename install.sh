@@ -1,17 +1,17 @@
 #!/bin/bash
 
-CONFIG="/tmp/install.conf"
+CONFIG="/tmp/gentoo-install/install.conf"
 
 DIALOG=${DIALOG=dialog}
-DT=/tmp/DISKS
-temp2=`temp2 2>/dev/null` || temp2=/tmp/inet
-tempfile3=`tempfile3 2>/dev/null` || tempfile3=/tmp/ipnet
-tempfile4=`tempfile4 2>/dev/null` || tempfile4=/tmp/manet
-tempfile5=`tempfile5 2>/dev/null` || tempfile5=/tmp/gwnet
-tempfile6=`tempfile6 2>/dev/null` || tempfile6=/tmp/honet
-tempfile7=`tempfile7 2>/dev/null` || tempfile7=/tmp/donet
-part=`part 2>/dev/null` || part=/tmp/part
-tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/sdisk$$
+DT=/tmp/gentoo-install/DISKS
+temp2=`temp2 2>/dev/null` || temp2=/tmp/gentoo-install/inet
+tempfile3=`tempfile3 2>/dev/null` || tempfile3=/tmp/gentoo-install/ipnet
+tempfile4=`tempfile4 2>/dev/null` || tempfile4=/tmp/gentoo-install/manet
+tempfile5=`tempfile5 2>/dev/null` || tempfile5=/tmp/gentoo-install/gwnet
+tempfile6=`tempfile6 2>/dev/null` || tempfile6=/tmp/gentoo-install/honet
+tempfile7=`tempfile7 2>/dev/null` || tempfile7=/tmp/gentoo-install/donet
+part=`part 2>/dev/null` || part=/tmp/gentoo-install/part
+tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/gentoo-install/sdisk$$
 
 dialog --backtitle "Network setting" --title "Network setting" \
 --no-shadow --menu "Import current network settings or enter them manually?" 0 0 0 "import" "Import the current network settings?" \
@@ -141,8 +141,7 @@ case "$item" in
         ;;
 esac
 
-cd /tmp
-wget http://public.t-brain.ru/gentoo-install/part-a.sh > /dev/null 2>&1
+cd /tmp/gentoo-install
 chmod +x ./part-a.sh > /dev/null 2>&1
 time ./part-a.sh
 #

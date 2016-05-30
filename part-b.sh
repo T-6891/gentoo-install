@@ -151,7 +151,6 @@ echo
 # Настройка ядра
 for i in 'Настройка ядра...'; do printf "$i\r"; done
 cd /usr/src/linux > /dev/null 2>&1
-wget public.t-brain.ru/gentoo-install/conf/kernel -O /usr/src/linux/.config > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else

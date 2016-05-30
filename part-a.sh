@@ -40,11 +40,9 @@ echo ''
 for i in 'Создание разделов диска...'; do printf "$i\r"; done
 if [ "$PARTDISK" == "FS" ]
 then
-        wget http://public.t-brain.ru/gentoo-install/conf/fs.conf > /dev/null 2>&1
-        PARTDISKSCHEME="fs.conf"
+        PARTDISKSCHEME="/tmp/gentoo-install/conf/fs.conf"
 else
-        wget http://public.t-brain.ru/gentoo-install/conf/lvm.conf > /dev/null 2>&1
-        PARTDISKSCHEME="lvm.conf"
+        PARTDISKSCHEME="/tmp/gentoo-install/conf/lvm.conf"
 fi
 
 while read line
@@ -176,7 +174,7 @@ echo
 
 # Копирование конфигурационных файлов
 for i in 'Копирование конфигурационных файлов...'; do printf "$i\r"; done
-cp /tmp/install.conf /mnt/gentoo/tmp/install.conf > /dev/null 2>&1
+cp /tmp/gentoo-install/conf/install.conf /mnt/gentoo/tmp/install.conf > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -202,8 +200,9 @@ echo
 
 # Переход в новое окружение (chroot)
 for i in 'Переход в новое окружение (chroot)...'; do printf "$i\r"; done
+cp /tmp/gentoo-install/part-b.sh /mnt/gentoo/tmp/ 
+cp /tmp/gentoo-install/conf/kernel /mnt/gentoo/src/linux/.config
 cd /mnt/gentoo/tmp/ > /dev/null 2>&1
-wget http://public.t-brain.ru/gentoo-install/part-b.sh > /dev/null 2>&1
 chmod +x ./part-b.sh > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
