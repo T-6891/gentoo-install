@@ -47,7 +47,7 @@ fi
 
 while read line
 do
-parted -sa optimal $DISK1 "$line"   > /dev/null 2>&1
+parted -sa optimal $DISK1 "$line"   
 done < $PARTDISKSCHEME
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -60,8 +60,8 @@ echo
 
 # Форматирование разделов
 for i in 'Форматирование разделов...'; do printf "$i\r"; done
-mkfs.ext4 $DISK1[2]  > /dev/null 2>&1
-mkfs.ext4 $DISK1[4]  > /dev/null 2>&1
+mkfs.ext4 $DISK1[2]  
+mkfs.ext4 $DISK1[4]  
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -73,8 +73,8 @@ echo
 
 # Активация раздела подкачки
 for i in 'Активация раздела подкачки...'; do printf "$i\r"; done
-mkswap $DISK1[3] > /dev/null 2>&1
-swapon $DISK1[3] > /dev/null 2>&1
+mkswap $DISK1[3] 
+swapon $DISK1[3] 
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -85,9 +85,9 @@ echo
 
 # Монтирование
 for i in 'Монтирование разделов...'; do printf "$i\r"; done
-mount /dev/sda4 /mnt/gentoo > /dev/null 2>&1
-mkdir /mnt/gentoo/boot > /dev/null 2>&1
-mount /dev/sda2 /mnt/gentoo/boot > /dev/null 2>&1
+mount /dev/sda4 /mnt/gentoo 
+mkdir /mnt/gentoo/boot 
+mount /dev/sda2 /mnt/gentoo/boot 
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -98,7 +98,7 @@ echo
 
 # Синхронизация времени
 for i in 'Синхронизация времени...'; do printf "$i\r"; done
-/usr/sbin/ntpdate -u pool.ntp.org > /dev/null 2>&1
+/usr/sbin/ntpdate -u pool.ntp.org 
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -109,8 +109,8 @@ echo
 
 # Загрузка свежего среза системы
 for i in 'Загрузка актуального среза системы...'; do printf "$i\r"; done
-cd /mnt/gentoo  > /dev/null 2>&1
-wget http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/`links -source http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/latest-stage3-amd64.txt | grep stage3 | awk '{print $1}'`  > /dev/null 2>&1
+cd /mnt/gentoo  
+wget http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/`links -source http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/latest-stage3-amd64.txt | grep stage3 | awk '{print $1}'`  
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -120,7 +120,7 @@ echo -n "${reset}"
 echo
 
 for i in 'Распаковка архива...'; do printf "$i\r"; done
-tar xvjpf stage3-*.tar.bz2  > /dev/null 2>&1
+tar xvjpf stage3-*.tar.bz2  
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -146,7 +146,7 @@ echo MAKEOPTS=\"-j$((`cat /proc/cpuinfo | grep processor | wc -l` + 1))\" >> $MA
 echo " " >> $MAKECONF
 echo 'GENTOO_MIRRORS="http://mirror.yandex.ru/gentoo-distfiles/"' >> $MAKECONF
 echo " " >> $MAKECONF
-mkdir -p /etc/portage/repos.conf/ > /dev/null 2>&1
+mkdir -p /etc/portage/repos.conf/ 
 echo '[gentoo]' > /etc/portage/repos.conf/gentoo.conf
 echo 'location = /usr/portage' >> /etc/portage/repos.conf/gentoo.conf
 echo 'sync-type = rsync' >> /etc/portage/repos.conf/gentoo.conf
@@ -163,7 +163,7 @@ echo
 
 # Копирование DNS настроек
 for i in 'Копирование настроек DNS...'; do printf "$i\r"; done
-cp -L /etc/resolv.conf /mnt/gentoo/etc/ > /dev/null 2>&1
+cp -L /etc/resolv.conf /mnt/gentoo/etc/ 
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -174,7 +174,7 @@ echo
 
 # Копирование конфигурационных файлов
 for i in 'Копирование конфигурационных файлов...'; do printf "$i\r"; done
-cp /tmp/gentoo-install/conf/install.conf /mnt/gentoo/tmp/install.conf > /dev/null 2>&1
+cp /tmp/gentoo-install/conf/install.conf /mnt/gentoo/tmp/install.conf 
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -185,11 +185,11 @@ echo
 
 # Монтирование необходимых файловых систем
 for i in 'Монтирование необходимых файловых систем...'; do printf "$i\r"; done
-mount -t proc proc /mnt/gentoo/proc > /dev/null 2>&1
-mount --rbind /sys /mnt/gentoo/sys > /dev/null 2>&1
-mount --make-rslave /mnt/gentoo/sys > /dev/null 2>&1
-mount --rbind /dev /mnt/gentoo/dev > /dev/null 2>&1
-mount --make-rslave /mnt/gentoo/dev > /dev/null 2>&1
+mount -t proc proc /mnt/gentoo/proc 
+mount --rbind /sys /mnt/gentoo/sys 
+mount --make-rslave /mnt/gentoo/sys 
+mount --rbind /dev /mnt/gentoo/dev 
+mount --make-rslave /mnt/gentoo/dev 
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -202,8 +202,8 @@ echo
 for i in 'Переход в новое окружение (chroot)...'; do printf "$i\r"; done
 cp /tmp/gentoo-install/part-b.sh /mnt/gentoo/tmp/ 
 cp /tmp/gentoo-install/conf/kernel /mnt/gentoo/src/linux/.config
-cd /mnt/gentoo/tmp/ > /dev/null 2>&1
-chmod +x ./part-b.sh > /dev/null 2>&1
+cd /mnt/gentoo/tmp/ 
+chmod +x ./part-b.sh 
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -217,7 +217,7 @@ chroot /mnt/gentoo/ /bin/bash -c /tmp/part-b.sh
 
 # Перезагрузка
 for i in 'Перезагрузка системы...'; do printf "$i\r"; done
-cd > /dev/null 2>&1
+cd 
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
