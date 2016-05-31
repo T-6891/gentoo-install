@@ -141,6 +141,7 @@ echo
 # Настройка ядра
 for i in 'Настройка ядра...'; do printf "$i\r"; done
 cd /usr/src/linux > /dev/null 2>&1
+cp /mnt/gentoo/tmp/kernel /usr/src/linux/.config > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else

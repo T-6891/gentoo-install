@@ -200,8 +200,8 @@ echo
 
 # Переход в новое окружение (chroot)
 for i in 'Переход в новое окружение (chroot)...'; do printf "$i\r"; done
-cp /tmp/gentoo-install/part-b.sh /mnt/gentoo/tmp/ 
-cp /tmp/gentoo-install/conf/kernel /mnt/gentoo/src/linux/.config
+cp /tmp/gentoo-install/part-b.sh /mnt/gentoo/tmp/ > /dev/null 2>&1
+cp /tmp/gentoo-install/conf/kernel /mnt/gentoo/tmp/ > /dev/null 2>&1
 cd /mnt/gentoo/tmp/ > /dev/null 2>&1
 chmod +x ./part-b.sh > /dev/null 2>&1
 if [ $? -eq 0 ]; then
