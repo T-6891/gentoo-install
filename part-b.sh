@@ -595,7 +595,11 @@ echo
 
 for i in 'Настройка загрузчика операционной системы...'; do printf "$i\r"; done
 sed -r 's/#*\s*GRUB_GFXMODE=640x480/GRUB_GFXMODE=1920x1080,1280x1024,1024x768/g' -i /etc/default/grub
+<<<<<<< HEAD
 sed -r 's/#*\s*GRUB_GFXPAYLOAD_LINUX=/GRUB_GFXPAYLOAD_LINUX=keep/g' -i /etc/default/grub
+=======
+sed -r 's/#*\s*GRUB_GFXPAYLOAD_LINUX=/GRUB_GFXPAYLOAD_LINUX=keep' -i /etc/default/grub
+>>>>>>> origin/master
 grub2-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
