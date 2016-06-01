@@ -85,9 +85,9 @@ echo
 
 # Монтирование
 for i in 'Монтирование разделов...'; do printf "$i\r"; done
-mount /dev/sda4 /mnt/gentoo > /dev/null 2>&1
+mount $DISK1'4' /mnt/gentoo > /dev/null 2>&1
 mkdir /mnt/gentoo/boot > /dev/null 2>&1
-mount /dev/sda2 /mnt/gentoo/boot > /dev/null 2>&1
+mount $DISK1'2' /mnt/gentoo/boot > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
