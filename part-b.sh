@@ -540,6 +540,16 @@ fi
 echo -n "${reset}"
 echo
 
+for i in 'Установка ntp клиента...'; do printf "$i\r"; done
+emerge -q net-misc/ntp > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
 for i in 'Установка системы управления версиями git...'; do printf "$i\r"; done
 emerge -q dev-vcs/git > /dev/null 2>&1
 if [ $? -eq 0 ]; then
