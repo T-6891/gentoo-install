@@ -14,11 +14,30 @@ green=$(tput setf 2)
 reset=$(tput sgr0)
 toend=$(tput hpa $(tput cols))$(tput cub 6)
 
-#touch /etc/portage/package.license
-#touch /etc/portage/package.keywords
-#touch /etc/portage/package.use
-#touch /etc/portage/package.unmask
-#touch /etc/portage/package.mask
+# Создание конфигурационных файлов системы управления портеджами
+for i in 'Создание конфигурационных файлов системы управления портеджами...'; do printf "$i\r"; done
+touch /etc/portage/package.license  > /dev/null 2>&1
+touch /etc/portage/package.keywords  > /dev/null 2>&1
+touch /etc/portage/package.unmask  > /dev/null 2>&1
+touch /etc/portage/package.mask > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+# Монтирование загрузочного раздела 
+for i in 'Монтирование загрузочного раздела...'; do printf "$i\r"; done
+mount /dev/sda2 /boot  > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
 
 # Установка свежего среза портеджей
 for i in 'Установка свежего среза портеджей...'; do printf "$i\r"; done
@@ -32,9 +51,9 @@ echo -n "${reset}"
 echo
 
 
-# Настройка профиля
+# Настройка профиля системы
 for i in 'Настройка профиля системы...'; do printf "$i\r"; done
-eselect profile set default/linux/amd64/13.0 > /dev/null 2>&1
+eselect profile set default/linux/amd64/17.0 > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -45,7 +64,7 @@ echo
 
 # Настройка часового пояса
 for i in 'Настройка часового пояса...'; do printf "$i\r"; done
-echo "Europe/Moscow" > /etc/timezone
+echo "Europe/Moscow" > /etc/timezone 
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
