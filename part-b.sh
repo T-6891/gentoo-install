@@ -185,8 +185,6 @@ echo
 # Установка нового ядра
 for i in 'Установка нового ядра...'; do printf "$i\r"; done
 make install > /dev/null 2>&1
-mkdir -p /boot/efi/boot > /dev/null 2>&1
-cp /boot/vmlinuz* /boot/efi/boot/bootx64.efi > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -195,11 +193,24 @@ fi
 echo -n "${reset}"
 echo
 
+# Установка файлов прошивки 
+for i in 'Установка файлов прошивки...'; do printf "$i\r"; done
+echo ">=sys-kernel/linux-firmware-20190717 linux-fw-redistributable no-source-code" >> /etc/portage/package.license
+emerge -q sys-kernel/linux-firmware > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
+
 # Настройка файловых систем
 for i in 'Настройка файловых систем...'; do printf "$i\r"; done
-echo $DISK1[2]   /boot        ext4    defaults,noatime     0 2 > /etc/fstab
-echo $DISK1[3]   none         swap    sw                   0 0 >> /etc/fstab
-echo $DISK1[4]   /            ext4    noatime              0 1 >> /etc/fstab
+echo `blkid | grep 'PARTLABEL="boot"' | awk '{print $2}'`   /boot   vfat    defaults,noatime     0 2 > /etc/fstab
+echo `blkid | grep 'PARTLABEL="swap"' | awk '{print $2}'`   none         swap    sw                   0 0 >> /etc/fstab
+echo `blkid | grep 'PARTLABEL="rootfs"' | awk '{print $2}'`   /            ext4    noatime              0 1 >> /etc/fstab
 echo  >> /etc/fstab
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -209,7 +220,7 @@ fi
 echo -n "${reset}"
 echo
 
-# Настройка параметров имени комптютера
+# Настройка параметров имени компьютера
 for i in 'Настройка параметров имени системы в сети...'; do printf "$i\r"; done
 echo "hostname=\"$HOST\"" > /etc/conf.d/hostname
 echo "127.0.0.1       $HOST.$DOMAIN $HOST" > /etc/hosts
@@ -262,8 +273,8 @@ echo
 
 # Компонент для ведения системных логов
 for i in 'Установка службы ведения системных логов...'; do printf "$i\r"; done
-emerge -q app-admin/rsyslog > /dev/null 2>&1
-rc-update add rsyslog default > /dev/null 2>&1
+emerge -q app-admin/sysklogd > /dev/null 2>&1
+rc-update add sysklogd default > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -603,7 +614,7 @@ echo
 
 # Grub
 for i in 'Сборка загрузчика операционной системы...'; do printf "$i\r"; done
-emerge -q sys-boot/grub > /dev/null 2>&1
+emerge -q sys-boot/grub:2 > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -613,7 +624,7 @@ echo -n "${reset}"
 echo
 
 for i in 'Установка загрузчика операционной системы...'; do printf "$i\r"; done
-grub-install $DISK1 > /dev/null 2>&1
+grub-install  `blkid | grep 'PARTLABEL="rootfs"' | awk '{print $1}'` | sed 's/\(.*\)../\1/' > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -623,8 +634,6 @@ echo -n "${reset}"
 echo
 
 for i in 'Настройка загрузчика операционной системы...'; do printf "$i\r"; done
-sed -r 's/#*\s*GRUB_GFXMODE=640x480/GRUB_GFXMODE=1920x1080,1280x1024,1024x768/g' -i /etc/default/grub
-sed -r 's/#*\s*GRUB_GFXPAYLOAD_LINUX=/GRUB_GFXPAYLOAD_LINUX=keep/g' -i /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -634,6 +643,6 @@ fi
 echo -n "${reset}"
 echo
 
-rm -rf /stage3-amd64-*.tar.bz2
+rm -rf /stage3-*.tar.*
 
 exit
