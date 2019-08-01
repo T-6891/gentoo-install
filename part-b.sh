@@ -614,6 +614,7 @@ echo
 
 # Grub
 for i in 'Сборка загрузчика операционной системы...'; do printf "$i\r"; done
+echo 'GRUB_PLATFORMS="efi-64"' >> /etc/portage/make.conf
 emerge -q sys-boot/grub:2 > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -624,7 +625,7 @@ echo -n "${reset}"
 echo
 
 for i in 'Установка загрузчика операционной системы...'; do printf "$i\r"; done
-grub-install  `blkid | grep 'PARTLABEL="rootfs"' | awk '{print $1}'` | sed 's/\(.*\)../\1/' > /dev/null 2>&1
+grub-install  `blkid | grep 'PARTLABEL="rootfs"' | awk '{print $1}' | sed 's/\(.*\)../\1/'` > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
