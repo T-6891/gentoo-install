@@ -55,7 +55,7 @@ esac
 fdisk -l | grep "Disk " | grep -v identifier | grep -v loop0 | awk '{print $2, $3 $4}' | sed -r 's/(.*),$/\1/' | awk '{print $0" off "}' | grep '/dev/sd*' > $DT
 
 # Новый поиск
-# fdisk -l | grep Диск | grep -v '/dev/ram*' | awk '{print $2}' | sed -r 's/(.*):$/\1/' | sed 's|.*/||' 
+# fdisk -l | grep Диск | grep -v '/dev/ram*' | grep -v loop0 | awk '{print $2}' | sed -r 's/(.*):$/\1/' | sed 's|.*/||' 
 
 
 NDISK1=`awk 'NR == 1' $DT | awk '{print $1}' | sed -r 's/(.*):$/\1/'`
