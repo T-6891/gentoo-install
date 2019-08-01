@@ -60,7 +60,7 @@ echo
 
 # Форматирование разделов
 for i in 'Форматирование разделов...'; do printf "$i\r"; done
-mkfs.ext4 $DISK1[2]  > /dev/null 2>&1
+mkfs.fat -F 32  $DISK1[2]  > /dev/null 2>&1
 mkfs.ext4 $DISK1[4]  > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -98,7 +98,7 @@ echo
 
 # Синхронизация времени
 for i in 'Синхронизация времени...'; do printf "$i\r"; done
-/usr/sbin/ntpdate -u pool.ntp.org > /dev/null 2>&1
+hwclock --localtime  > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -110,7 +110,7 @@ echo
 # Загрузка свежего среза системы
 for i in 'Загрузка актуального среза системы...'; do printf "$i\r"; done
 cd /mnt/gentoo  > /dev/null 2>&1
-wget http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/`links -source http://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/latest-stage3-amd64.txt | grep stage3 | awk '{print $1}'`  > /dev/null 2>&1
+wget https://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/`links -source https://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/latest-stage3-amd64.txt | grep stage3 | awk '{print $1}'`  > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -120,7 +120,7 @@ echo -n "${reset}"
 echo
 
 for i in 'Распаковка архива...'; do printf "$i\r"; done
-tar xvjpf stage3-*.tar.bz2  > /dev/null 2>&1
+tar xpvf stage3-*.tar.xz  > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
