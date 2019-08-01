@@ -136,7 +136,7 @@ echo 'CFLAGS="-march=native -O2 -pipe"' > $MAKECONF
 echo 'CXXFLAGS="${CFLAGS}"' >> $MAKECONF
 echo 'CHOST="x86_64-pc-linux-gnu"' >> $MAKECONF
 echo " " >> $MAKECONF
-echo 'USE="-ipv6 -X -cups -alsa bindist mmx sse sse2 acl threads sockets symlink vim-syntax unicode"' >> $MAKECONF
+echo 'USE="-ipv6 -X -cups -alsa bindist acl sockets symlink vim-syntax unicode"' >> $MAKECONF
 echo " " >> $MAKECONF
 echo 'PORTDIR="/usr/portage"' >> $MAKECONF
 echo 'DISTDIR="${PORTDIR}/distfiles"' >> $MAKECONF
@@ -144,15 +144,10 @@ echo 'PKGDIR="${PORTDIR}/packages"' >> $MAKECONF
 echo " " >> $MAKECONF
 echo MAKEOPTS=\"-j$((`cat /proc/cpuinfo | grep processor | wc -l` + 1))\" >> $MAKECONF
 echo " " >> $MAKECONF
-echo 'GENTOO_MIRRORS="http://mirror.yandex.ru/gentoo-distfiles/"' >> $MAKECONF
+echo 'GENTOO_MIRRORS="https://mirror.yandex.ru/gentoo-distfiles/"' >> $MAKECONF
 echo " " >> $MAKECONF
-mkdir -p /etc/portage/repos.conf/ > /dev/null 2>&1
-echo '[gentoo]' > /etc/portage/repos.conf/gentoo.conf
-echo 'location = /usr/portage' >> /etc/portage/repos.conf/gentoo.conf
-echo 'sync-type = rsync' >> /etc/portage/repos.conf/gentoo.conf
-echo 'sync-uri = rsync://mirror.yandex.ru/gentoo-portage' >> /etc/portage/repos.conf/gentoo.conf
-echo 'auto-sync = yes' >> /etc/portage/repos.conf/gentoo.conf
-echo ' ' >> /etc/portage/repos.conf/gentoo.conf
+mkdir --parents /mnt/gentoo/etc/portage/repos.conf > /dev/null 2>&1
+cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -163,7 +158,7 @@ echo
 
 # Копирование DNS настроек
 for i in 'Копирование настроек DNS...'; do printf "$i\r"; done
-cp -L /etc/resolv.conf /mnt/gentoo/etc/ > /dev/null 2>&1
+cp --dereference /etc/resolv.conf /mnt/gentoo/etc/ > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -185,7 +180,7 @@ echo
 
 # Монтирование необходимых файловых систем
 for i in 'Монтирование необходимых файловых систем...'; do printf "$i\r"; done
-mount -t proc proc /mnt/gentoo/proc > /dev/null 2>&1
+mount --types proc /proc /mnt/gentoo/proc > /dev/null 2>&1
 mount --rbind /sys /mnt/gentoo/sys > /dev/null 2>&1
 mount --make-rslave /mnt/gentoo/sys > /dev/null 2>&1
 mount --rbind /dev /mnt/gentoo/dev > /dev/null 2>&1
@@ -212,7 +207,7 @@ fi
 echo -n "${reset}"
 echo
 
-chroot /mnt/gentoo/ /bin/bash -c /tmp/part-b.sh
+chroot /mnt/gentoo /bin/bash -c /tmp/part-b.sh
 
 
 # Перезагрузка
