@@ -28,18 +28,6 @@ fi
 echo -n "${reset}"
 echo
 
-# Монтирование загрузочного раздела 
-for i in 'Монтирование загрузочного раздела...'; do printf "$i\r"; done
-#mount /dev/sda2 /boot  > /dev/null 2>&1
-mount /dev/sda2 /boot
-if [ $? -eq 0 ]; then
-    echo -n  "${toend}${reset}[${green}OK${reset}]"
-else
-    echo -n  "${toend}${reset}[${red}fail${reset}]"
-fi
-echo -n "${reset}"
-echo
-
 # Установка свежего среза портеджей
 for i in 'Установка свежего среза портеджей...'; do printf "$i\r"; done
 emerge-webrsync > /dev/null 2>&1
