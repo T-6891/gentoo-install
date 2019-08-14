@@ -358,7 +358,6 @@ echo -n "${reset}"
 echo
 
 for i in 'Установка мониторa процессов Glances ...'; do printf "$i\r"; done
-echo ">=sys-process/glances-2.3 ~amd64" >> /etc/portage/package.keywords/glances
 emerge -q sys-process/glances > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
