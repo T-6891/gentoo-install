@@ -439,7 +439,7 @@ echo -n "${reset}"
 echo
 
 for i in 'Установка протеджа netcat ...'; do printf "$i\r"; done
-emerge -q net-analyzer/gnu-netcat > /dev/null 2>&1
+emerge -q net-analyzer/netcat > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
