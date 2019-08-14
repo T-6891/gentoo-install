@@ -132,16 +132,16 @@ cat $CONFIG
 
 echo " "
 echo " "
-echo -n "Готовы ли вы приступить к установке? (y/n) "
+echo -n "Are you ready to start the installation? (y/n) "
 
 read item
 case "$item" in
-    y|Y) echo "Ввели «y», продолжаем..."
+    y|Y) echo "Enter «y» to continue..."
         ;;
-    n|N) echo "Ввели «n», завершаем..."
+    n|N) echo "Enter «n», to continue......"
         exit 0
         ;;
-    *) echo "Ничего не ввели. Выполняем действие по умолчанию..."
+    *) echo "They didn’t enter anything. Perform the default action ..."
         ;;
 esac
 
