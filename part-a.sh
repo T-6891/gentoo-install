@@ -173,7 +173,7 @@ echo
 
 # Синхронизация времени
 for i in 'Синхронизация времени...'; do printf "$i\r"; done
-hwclock --localtime  > /dev/null 2>&1
+ntpd -q -g  > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
@@ -181,6 +181,8 @@ else
 fi
 echo -n "${reset}"
 echo
+
+
 
 # Загрузка свежего среза системы
 for i in 'Загрузка актуального среза системы...'; do printf "$i\r"; done
