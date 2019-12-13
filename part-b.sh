@@ -184,6 +184,7 @@ echo
 
 # Установка genkernel
 for i in 'Installig genkernel..'; do printf "$i\r"; done
+echo "sys-apps/util-linux static-libs" >> /etc/portage/package.use/util-linux
 emerge -q sys-kernel/genkernel > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
