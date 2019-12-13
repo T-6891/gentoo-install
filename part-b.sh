@@ -602,8 +602,8 @@ echo
 
 # Grub
 for i in 'Сборка загрузчика операционной системы...'; do printf "$i\r"; done
-#echo 'GRUB_PLATFORMS="efi-64"' >> /etc/portage/make.conf
-echo 'GRUB_PLATFORMS="pc"' >> /etc/portage/make.conf
+echo 'GRUB_PLATFORMS="efi-64"' >> /etc/portage/make.conf
+#echo 'GRUB_PLATFORMS="pc"' >> /etc/portage/make.conf
 emerge -q sys-boot/grub:2 > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
