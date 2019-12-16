@@ -637,7 +637,7 @@ echo
 
 for i in 'Установка загрузчика операционной системы...'; do printf "$i\r"; done
 #grub-install  `blkid | grep 'PARTLABEL="rootfs"' | awk '{print $1}' | sed 's/\(.*\)../\1/'` > /dev/null 2>&1
-grub-install '--target=x86_64-efi --efi-directory=/boot' > /dev/null 2>&1
+grub-install --target=x86_64-efi --efi-directory=/boot > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
