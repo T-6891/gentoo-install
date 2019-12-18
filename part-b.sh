@@ -146,42 +146,6 @@ fi
 echo -n "${reset}"
 echo
 
-## Настройка ядра
-#for i in 'Настройка ядра...'; do printf "$i\r"; done
-#cd /usr/src/linux > /dev/null 2>&1
-#cp /tmp/kernel /usr/src/linux/.config
-#if [ $? -eq 0 ]; then
-#    echo -n  "${toend}${reset}[${green}OK${reset}]"
-#else
-#    echo -n  "${toend}${reset}[${red}fail${reset}]"
-#fi
-#echo -n "${reset}"
-#echo
-#
-## Сборка нового ядра
-#for i in 'Сборка нового ядра...'; do printf "$i\r"; done
-#make olddefconfig > /dev/null 2>&1
-#make > /dev/null 2>&1
-#make modules_install > /dev/null 2>&1
-#if [ $? -eq 0 ]; then
-#    echo -n  "${toend}${reset}[${green}OK${reset}]"
-#else
-#    echo -n  "${toend}${reset}[${red}fail${reset}]"
-#fi
-#echo -n "${reset}"
-#echo
-#
-## Установка нового ядра
-#for i in 'Установка нового ядра...'; do printf "$i\r"; done
-#make install > /dev/null 2>&1
-#if [ $? -eq 0 ]; then
-#    echo -n  "${toend}${reset}[${green}OK${reset}]"
-#else
-#    echo -n  "${toend}${reset}[${red}fail${reset}]"
-#fi
-#echo -n "${reset}"
-#echo
-
 # Установка genkernel
 for i in 'Installig genkernel..'; do printf "$i\r"; done
 echo "sys-apps/util-linux static-libs" >> /etc/portage/package.use/util-linux
@@ -332,16 +296,6 @@ echo
 
 for i in 'Установка редактора VIM ...'; do printf "$i\r"; done
 emerge -q app-editors/vim > /dev/null 2>&1
-if [ $? -eq 0 ]; then
-    echo -n  "${toend}${reset}[${green}OK${reset}]"
-else
-    echo -n  "${toend}${reset}[${red}fail${reset}]"
-fi
-echo -n "${reset}"
-echo
-
-for i in 'Установка редактора Nano  ...'; do printf "$i\r"; done
-emerge -q app-editors/nano > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
