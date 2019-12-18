@@ -611,6 +611,17 @@ fi
 echo -n "${reset}"
 echo
 
+for i in 'Installing Telegraf (agent for collecting & reporting metrics)'; do printf "$i\r"; done
+echo "net-analyzer/telegraf ~amd64" >> /etc/portage/package.keywords
+emerge -q net-analyzer/telegraf > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo -n  "${toend}${reset}[${green}OK${reset}]"
+else
+    echo -n  "${toend}${reset}[${red}fail${reset}]"
+fi
+echo -n "${reset}"
+echo
+
 #Удаленный доступ
 for i in 'Добавление службы SSH в автозагрузку...'; do printf "$i\r"; done
 sed -r 's/#*\s*PermitRootLogin prohibit-password/PermitRootLogin yes/g' -i /etc/ssh/sshd_config
