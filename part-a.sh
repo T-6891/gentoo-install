@@ -112,7 +112,7 @@ sleep 5
 echo ''
 echo ''
 # Разметка диска
-for i in 'Создание разделов диска...'; do printf "$i\r"; done
+for i in 'Creating disk partitions...'; do printf "$i\r"; done
 if [ "$PARTDISK" == "FS" ]
 then
         PARTDISKSCHEME="/tmp/gentoo-install/conf/fs.conf"
@@ -128,13 +128,13 @@ if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
 else
     echo -n  "${toend}${reset}[${red}fail${reset}]"
-    echo 'Произошла критическая ошибка! Продолжение установки невозможно...'
+    echo 'A critical error has occurred! The installation cannot continue...'
 fi
 echo -n "${reset}"
 echo
 
 # Форматирование разделов
-for i in 'Форматирование разделов...'; do printf "$i\r"; done
+for i in 'Formatting partitions...'; do printf "$i\r"; done
 mkfs.fat -F 32  $DISK1[2]  > /dev/null 2>&1
 mkfs.ext4 $DISK1[4]  > /dev/null 2>&1
 if [ $? -eq 0 ]; then
@@ -147,7 +147,7 @@ echo
 
 
 # Активация раздела подкачки
-for i in 'Активация раздела подкачки...'; do printf "$i\r"; done
+for i in 'Activate the swap partition...'; do printf "$i\r"; done
 mkswap $DISK1[3] > /dev/null 2>&1
 swapon $DISK1[3] > /dev/null 2>&1
 if [ $? -eq 0 ]; then
@@ -159,7 +159,7 @@ echo -n "${reset}"
 echo
 
 # Монтирование
-for i in 'Монтирование разделов...'; do printf "$i\r"; done
+for i in 'Mounting partitions...'; do printf "$i\r"; done
 mount $DISK1'4' /mnt/gentoo > /dev/null 2>&1
 mkdir /mnt/gentoo/boot > /dev/null 2>&1
 mount $DISK1'2' /mnt/gentoo/boot > /dev/null 2>&1
@@ -172,7 +172,7 @@ echo -n "${reset}"
 echo
 
 # Синхронизация времени
-for i in 'Синхронизация времени...'; do printf "$i\r"; done
+for i in 'Time synchronization...'; do printf "$i\r"; done
 ntpd -q -g  > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -185,7 +185,7 @@ echo
 
 
 # Загрузка свежего среза системы
-for i in 'Загрузка актуального среза системы...'; do printf "$i\r"; done
+for i in 'The download of the actual slice system...'; do printf "$i\r"; done
 cd /mnt/gentoo  > /dev/null 2>&1
 wget https://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/`links -source https://mirror.yandex.ru/gentoo-distfiles/releases/amd64/autobuilds/latest-stage3-amd64.txt | grep stage3 | awk '{print $1}'`  > /dev/null 2>&1
 if [ $? -eq 0 ]; then
@@ -196,7 +196,7 @@ fi
 echo -n "${reset}"
 echo
 
-for i in 'Распаковка архива...'; do printf "$i\r"; done
+for i in 'Unpacking the archive...'; do printf "$i\r"; done
 tar xpvf stage3-*.tar.xz  > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -208,7 +208,7 @@ echo
 
 
 # Настройка опции компиляции
-for i in 'Настройка опции компиляции...'; do printf "$i\r"; done
+for i in 'Configure the compilation option...'; do printf "$i\r"; done
 echo 'CFLAGS="-march=native -O2 -pipe"' > $MAKECONF
 echo 'CXXFLAGS="${CFLAGS}"' >> $MAKECONF
 echo 'CHOST="x86_64-pc-linux-gnu"' >> $MAKECONF
@@ -234,7 +234,7 @@ echo -n "${reset}"
 echo
 
 # Копирование DNS настроек
-for i in 'Копирование настроек DNS...'; do printf "$i\r"; done
+for i in 'Copying the DNS settings...'; do printf "$i\r"; done
 cp --dereference /etc/resolv.conf /mnt/gentoo/etc/ > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -245,7 +245,7 @@ echo -n "${reset}"
 echo
 
 # Копирование конфигурационных файлов
-for i in 'Копирование конфигурационных файлов...'; do printf "$i\r"; done
+for i in 'Copying configuration files...'; do printf "$i\r"; done
 cp /tmp/gentoo-install/install.conf /mnt/gentoo/tmp/install.conf > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -256,7 +256,7 @@ echo -n "${reset}"
 echo
 
 # Монтирование необходимых файловых систем
-for i in 'Монтирование необходимых файловых систем...'; do printf "$i\r"; done
+for i in 'Mount the necessary file systems...'; do printf "$i\r"; done
 mount --types proc /proc /mnt/gentoo/proc > /dev/null 2>&1
 mount --rbind /sys /mnt/gentoo/sys > /dev/null 2>&1
 mount --make-rslave /mnt/gentoo/sys > /dev/null 2>&1
@@ -271,7 +271,7 @@ echo -n "${reset}"
 echo
 
 # Переход в новое окружение (chroot)
-for i in 'Переход в новое окружение (chroot)...'; do printf "$i\r"; done
+for i in 'Transition to a new environment (chroot)...'; do printf "$i\r"; done
 cp /tmp/gentoo-install/part-b.sh /mnt/gentoo/tmp/ > /dev/null 2>&1
 cp /tmp/gentoo-install/conf/kernel /mnt/gentoo/tmp/ > /dev/null 2>&1
 cd /mnt/gentoo/tmp/ > /dev/null 2>&1
@@ -288,7 +288,7 @@ chroot /mnt/gentoo /bin/bash -c /tmp/part-b.sh
 
 
 # Перезагрузка
-for i in 'Перезагрузка системы...'; do printf "$i\r"; done
+for i in 'System restart...'; do printf "$i\r"; done
 cd > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -n  "${toend}${reset}[${green}OK${reset}]"
@@ -299,12 +299,12 @@ echo -n "${reset}"
 echo
 echo '###################################################################'
 echo " "
-echo 'Установка завершена!' 
+echo 'The installation is now complete!' 
 echo " "
 sleep 1
-echo "Система будет перезагружена" 
+echo "The system will restart" 
 echo " "
 sleep 1
-read -p "Для продолжения нажмите [${red}enter${reset}] ..."
+read -p "Press any key [${red}enter${reset}] ..."
 reboot
  
