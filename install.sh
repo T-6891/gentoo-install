@@ -52,11 +52,10 @@ case $choice in
         ;;
 esac
 
-fdisk -l | grep "Disk " | grep -v identifier | grep -v loop0 | awk '{print $2, $3 $4}' | sed -r 's/(.*),$/\1/' | awk '{print $0" off "}' | grep '/dev/sd*' > $DT
+fdisk -l | grep "Disk /dev/" | grep -v "Disk /dev/ram" | grep -v loop | awk '{print $2, $3 $4}' | sed -r 's/(.*),$/\1/' | awk '{print $0" off "}' > $DT
 
-# Новый поиск
-# fdisk -l | grep Диск | grep -v '/dev/ram*' | grep -v loop0 | awk '{print $2}' | sed -r 's/(.*):$/\1/' | sed 's|.*/||' 
-
+# old
+#fdisk -l | grep "Disk " | grep -v identifier | grep -v loop0 | awk '{print $2, $3 $4}' | sed -r 's/(.*),$/\1/' | awk '{print $0" off "}' | grep '/dev/sd*' > $DT
 
 NDISK1=`awk 'NR == 1' $DT | awk '{print $1}' | sed -r 's/(.*):$/\1/'`
 DSIZE1=`awk 'NR == 1' $DT | awk '{print $2, $3}'`
