@@ -87,6 +87,7 @@
 Загрузка инсталлятора
 
 ```
+screen
 cd /tmp
 git clone https://github.com/T-6891/gentoo-install
 cd ./gentoo-install
